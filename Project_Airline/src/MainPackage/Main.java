@@ -14,7 +14,17 @@ public class Main {
 		ResultSet rs = null; // 쿼리문을 날린것에 대한 반환값을 담을 객체
 	
 		
-		DBConnection.getConnection();
+		String query = "SELECT * FROM MEMBER";
+		
+		try {
+			
+			conn = DBConnection.getConnection();
+			pstm = conn.prepareStatement(query);
+			rs = pstm.executeQuery();
+			
+		}catch(SQLException sqle) {
+			System.out.println("SQL Error : " + sqle);
+		}
 		
 	}
 

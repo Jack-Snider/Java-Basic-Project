@@ -12,6 +12,8 @@ public class TicketDTO {
 	String tk_gin; // 도착지 공항코드
 	String tk_gout; // 출발지 공항코드
 	String tk_ename; // 탐승객 영문명
+	
+	
 	public String getTk_tno() {
 		return tk_tno;
 	}

@@ -11,7 +11,9 @@ public class Main {
 		
 		
 		MemberDAO mem = new MemberDAO();
-		mem.getConnection();
+		
+		mem.accessDB();
+		mem.signIn();
 		
 		
 		

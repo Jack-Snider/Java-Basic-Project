@@ -1,5 +1,5 @@
 package MainPackage;
 
-public class Member {
+public class TicketDTO {
 
 }

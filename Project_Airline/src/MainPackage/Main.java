@@ -9,23 +9,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Connection conn = null; // DB에 연결된 상태(세션)을 담은 객체
-		PreparedStatement pstm = null; // SQL문을 나타내는 객체
-		ResultSet rs = null; // 쿼리문을 날린것에 대한 반환값을 담을 객체
-	
 		
-		String query = "SELECT * FROM MEMBER";
+		MemberDAO mem = new MemberDAO();
 		
-		try {
-			
-			conn = DBConnection.getConnection();
-			pstm = conn.prepareStatement(query);
-			rs = pstm.executeQuery();
-			
-		}catch(SQLException sqle) {
-			System.out.println("SQL Error : " + sqle);
-		}
-		
+		mem.accessDB();
+		mem.signIn();
 		
 		
 		

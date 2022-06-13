@@ -15,26 +15,66 @@ public class MemberDAO extends DBConnection{
 	 * 
 	 * -기능(Functions)-
 	 * 1. 회원가입(SignIn)
-	 * 2. 로그인(LogIn)
-	 * 3. 회원탈퇴(DeleteAcnt)
-	 * 4. 예매내역 확인(CheckReserve)
-	 * 5. 예매내역 수정(UpdateReserve)
-	 * 6. 내정보수정(UpdateInfo)
-	 * 7. 항공권선택(PickFlight)
-	 * 8. 항공권결제(PayFlight)
+	 * 2. 로그인(LogIn) , 로그아웃(Logout)
+	 * 3. 회원탈퇴(delAccount)
+	 * 4. 예매내역 확인(checkReserve)
+	 * 5. 예매내역 수정(updateReserve)
+	 * 6. 내정보수정(updateInfo)
+	 * 7. 항공권선택(pickFlight)
+	 * 8. 항공권결제(payFlight)
 	 * 
 	 */
 	
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	static Connection conn;
+	MemberDTO memDTO;
 	
-	// 먼저 DB에 연동한다.
+	// 먼저 DB에 연동.
 	public void accessDB() {
 		conn = DBConnection.getConnection();
 	}
 	
-	public void logIn() {
+	// 회원탈퇴 - Delete Account
+	public void delAccount() {
 		
+		// logined check first
+		
+		
+	}
+	
+	// 로그인
+	public boolean logIn(String id, String pw) {
+		// This method returns true for login success
+		
+		boolean isLogined = false; // <- login status
+		
+		String query =	"SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id 
+									+ "\'" + " AND " + "MEM_PASS = " + "\'" + pw + "\'";
+		
+		
+		try {
+			
+			Statement stmt = conn.createStatement();
+			//stmt.executeQuery(query);
+			ResultSet rs = stmt.executeQuery(query);
+			
+			if(rs.next()) {
+				// 사용자가 입력한 아이디와 비번이 데이터베이스에서 일치하는게 존재
+				
+				isLogined = true;
+				
+			}else {
+				System.out.println("아이디/비밀번호가 일치하지 않거나 가입된 회원이 아닙니다.");
+				
+				
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return isLogined;
 	}
 	
 	
@@ -77,6 +117,11 @@ public class MemberDAO extends DBConnection{
 					continue;
 				}else {
 					System.out.println("사용가능한 아이디입니다.");
+					
+					// MemberDAO 필드 초기화
+					memDTO = new memDTO();
+					
+					
 					System.out.println("Insert 로 데이터베이스에 저장"); // <- DB 완성되면 INSERT 쿼리문 작성 예정
 					break;
 				}

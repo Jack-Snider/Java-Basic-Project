@@ -13,6 +13,38 @@ public class MemberDTO {
 	int mem_depm; //보유금액
 	
 	
+	MemberDTO(){}
+	
+	MemberDTO(String mem_id, String mem_pw, String regon){
+		
+		String tmp = "";
+		String tmp2 = "";
+		
+		boolean stat = false;
+		for(int i = 0; i < tmp.length(); i++) {
+			if(tmp.charAt(i) != '-') {
+				// 앞자리 저장
+				tmp += tmp.charAt(i);
+				stat = true;
+			}
+			
+			if(stat) {
+				// 뒷자리 저장
+				tmp2 += tmp.charAt(i);
+			}
+			
+		}
+		
+		this.mem_rgon1 = tmp;
+		this.mem_rgon2 = tmp2;
+		this.mem_id = mem_id;
+		this.mem_pw = mem_pw;
+		
+		
+		
+		
+	}
+	
 	public String getMem_id() {
 		return mem_id;
 	}

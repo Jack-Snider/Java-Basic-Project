@@ -1,7 +1,10 @@
 package MainPackage;
 
+import java.util.ArrayList;
+
 public class AirlineDTO {
 
+	
 	String air_code; //항공사코드
 	String air_name; //항공사명
 	String air_flt; //항공사편명

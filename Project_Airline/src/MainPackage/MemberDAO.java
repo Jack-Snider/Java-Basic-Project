@@ -11,6 +11,8 @@ import java.sql.Statement;
 //실질적인 작업이 이루어지는 클래스 (DB연동, CRUD 등...)
 public class MemberDAO extends DBConnection{
 	
+	static String user_name = "";
+	
 	/*
 	 * 
 	 * -기능(Functions)-
@@ -43,12 +45,12 @@ public class MemberDAO extends DBConnection{
 	}
 	
 	// 로그인
-	public boolean logIn(String id, String pw) {
+	public static boolean logIn(String id, String pw) {
 		// This method returns true for login success
 		
 		boolean isLogined = false; // <- login status
 		
-		String query =	"SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id 
+		String query = "SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id 
 									+ "\'" + " AND " + "MEM_PASS = " + "\'" + pw + "\'";
 		
 		
@@ -60,7 +62,7 @@ public class MemberDAO extends DBConnection{
 			
 			if(rs.next()) {
 				// 사용자가 입력한 아이디와 비번이 데이터베이스에서 일치하는게 존재
-				
+				user_name = rs.getString("MEM_NAME");
 				isLogined = true;
 				
 			}else {
@@ -68,6 +70,7 @@ public class MemberDAO extends DBConnection{
 				
 				
 			}
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -99,32 +102,42 @@ public class MemberDAO extends DBConnection{
 			
 			System.out.println("메뉴로 돌아가기 : m , 뒤로가기 : < ");
 			while(true) { // while starts
-				System.out.print("사용할 아이디 입력 : ");
+				System.out.print("사용할 아이디 입력 : "); // 아이디 입력
 				String id = bf.readLine();
-				System.out.print("비밀번호 입력 : ");
-				String pw = bf.readLine();
-				System.out.print("주민번호(앞자리-뒷자리) : ");
-				String regon = bf.readLine();
-				
 				
 				// 테이블은 아직 만들어지지 않았으므로 추후 만들예정, 지금은 다른 DB에서 테스트중.
 				stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id + "\'");
 				ResultSet rs = stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id + "\'");
-							
+				
 				//입력된 아이디로 조회가 된다면(rs에 값이 들어가있다면)
 				if(rs.next()) {
 					System.out.println("해당 아이디는 이미 존재하는 아이디입니다.");
 					continue;
-				}else {
-					System.out.println("사용가능한 아이디입니다.");
+				}else {					
+					System.out.print("비밀번호 입력 : "); // 비밀번호 입력
+					String pw = bf.readLine();
+					System.out.print("주민번호(앞자리-뒷자리) : "); // 주민번호 입력
+					String regon = bf.readLine();
+					System.out.print("이름 입력 : "); // 이름입력
+					String mem_nm = bf.readLine();
+					System.out.print("전화번호 입력 : "); // 전화번호 입력
+					String mem_tel = bf.readLine();
+					System.out.print("주소 : "); // 주소입력
+					String mem_add =  bf.readLine();
 					
-					// MemberDAO 필드 초기화
-					memDTO = new memDTO();
+					/*
+					 * Insert문으로 데이터베이스에 집어넣은 후 while문 break
+					 * 
+					 */
 					
-					
-					System.out.println("Insert 로 데이터베이스에 저장"); // <- DB 완성되면 INSERT 쿼리문 작성 예정
-					break;
 				}
+				
+				
+				
+				
+				
+							
+				
 			} // while ends
 			
 			

@@ -9,17 +9,12 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+				
+		// b001 1004
 		
-		MemberDAO mem = new MemberDAO();
+		UserView.menuView();
 		
-		mem.accessDB();
-		//mem.signIn();
-		
-		if(mem.logIn("b001","1000")) {
-			System.out.println("로그인 성공!");
-		}else {
-			System.out.println("로그인 실패 ㅜㅜ");
-		}
+	
 		
 		
 	}

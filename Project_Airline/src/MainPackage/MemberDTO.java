@@ -7,11 +7,42 @@ public class MemberDTO {
 	String mem_rgon1; //주민번호 앞자리
 	String mem_rgon2; //주민번호 뒷자리
 	String mem_nm; //성명
-	int mem_tel; //전화번호
+	String mem_tel; //전화번호
 	String mem_add; //주소
 	String mem_pp; //여권번호
 	int mem_depm; //보유금액
 	
+	
+	MemberDTO(){}
+	
+	MemberDTO(String regon){
+		
+		String tmp = "";
+		String tmp2 = "";
+		
+		boolean stat = false;
+		for(int i = 0; i < tmp.length(); i++) {
+			if(tmp.charAt(i) != '-') {
+				// 앞자리 저장
+				tmp += tmp.charAt(i);
+				stat = true;
+			}
+			
+			if(stat) {
+				// 뒷자리 저장
+				tmp2 += tmp.charAt(i);
+			}
+			
+		}
+		
+		this.mem_rgon1 = tmp;
+		this.mem_rgon2 = tmp2;
+
+		
+		
+		
+		
+	}
 	
 	public String getMem_id() {
 		return mem_id;
@@ -43,10 +74,10 @@ public class MemberDTO {
 	public void setMem_nm(String mem_nm) {
 		this.mem_nm = mem_nm;
 	}
-	public int getMem_tel() {
+	public String getMem_tel() {
 		return mem_tel;
 	}
-	public void setMem_tel(int mem_tel) {
+	public void setMem_tel(String mem_tel) {
 		this.mem_tel = mem_tel;
 	}
 	public String getMem_add() {

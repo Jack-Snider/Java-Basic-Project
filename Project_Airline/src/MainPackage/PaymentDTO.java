@@ -7,8 +7,7 @@ public class PaymentDTO {
 	int pay_amt; //결제금액
 	int pay_tno; //티켓번호
 	String pay_date; //결제일자
-	
-	boolean pay_hased; // 결제유무
+	boolean hasPayed; // 결제유무
 
 	public String getPay_num() {
 		return pay_num;
@@ -50,13 +49,15 @@ public class PaymentDTO {
 		this.pay_date = pay_date;
 	}
 
-	public boolean isPay_hased() {
-		return pay_hased;
+	public boolean hasPayed() {
+		return hasPayed;
 	}
 
-	public void setPay_hased(boolean pay_hased) {
-		this.pay_hased = pay_hased;
+	public void setHasPayed(boolean hasPayed) {
+		this.hasPayed = hasPayed;
 	}
+
+
 	
 	
 	

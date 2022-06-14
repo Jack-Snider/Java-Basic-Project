@@ -9,12 +9,16 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+				
+		// b001 1004
 		
-		MemberDAO mem = new MemberDAO();
+		MemberView.menuView();
 		
-		mem.accessDB();
-		mem.signIn();
+		//AdminView.showAllMember();
 		
+		
+		
+	
 		
 		
 	}

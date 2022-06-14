@@ -15,8 +15,7 @@ public class MemberDTO {
 	
 	MemberDTO(){}
 	
-	MemberDTO(String mem_id, String mem_pw, String regon, String  mem_nm
-	  , String mem_tel){
+	MemberDTO(String regon){
 		
 		String tmp = "";
 		String tmp2 = "";
@@ -38,10 +37,7 @@ public class MemberDTO {
 		
 		this.mem_rgon1 = tmp;
 		this.mem_rgon2 = tmp2;
-		this.mem_id = mem_id;
-		this.mem_pw = mem_pw;
-		this.mem_nm = mem_nm;
-		this.mem_add = mem_add;
+
 		
 		
 		

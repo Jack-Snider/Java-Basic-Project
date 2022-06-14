@@ -13,8 +13,8 @@ public class DBConnection {
 		Connection conn = null;
 
 		try {
-			String user = "ddit";
-			String pw = "java";
+			String user = "subin";
+			String pw = "subin";
 			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 
 			Class.forName("oracle.jdbc.driver.OracleDriver");

@@ -12,7 +12,11 @@ public class Main {
 				
 		// b001 1004
 		
-		UserView.menuView();
+		MemberView.menuView();
+		
+		//AdminView.showAllMember();
+		
+		
 		
 	
 		

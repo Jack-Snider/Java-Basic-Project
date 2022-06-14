@@ -12,7 +12,7 @@ import java.sql.Statement;
 public class MemberDAO extends DBConnection{
 	
 	static String user_name = "";
-	
+	static boolean adminLog = false;  // 관리자가 로그인 했는제 확인
 	/*
 	 * 
 	 * -기능(Functions)-
@@ -32,7 +32,7 @@ public class MemberDAO extends DBConnection{
 	MemberDTO memDTO;
 	
 	// 먼저 DB에 연동.
-	public void accessDB() {
+	public static void accessDB() {
 		conn = DBConnection.getConnection();
 	}
 	
@@ -50,8 +50,8 @@ public class MemberDAO extends DBConnection{
 		
 		boolean isLogined = false; // <- login status
 		
-		String query = "SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id 
-									+ "\'" + " AND " + "MEM_PASS = " + "\'" + pw + "\'";
+		String query = "SELECT * FROM MEMBER WHERE MEM_ID = " + " '" + id 
+									+ "' " + " AND " + "MEM_PW = " + " '" + pw + "'";
 		
 		
 		try {
@@ -62,7 +62,7 @@ public class MemberDAO extends DBConnection{
 			
 			if(rs.next()) {
 				// 사용자가 입력한 아이디와 비번이 데이터베이스에서 일치하는게 존재
-				user_name = rs.getString("MEM_NAME");
+				user_name = rs.getString("MEM_NM");
 				isLogined = true;
 				
 			}else {
@@ -82,7 +82,7 @@ public class MemberDAO extends DBConnection{
 	
 	
 	// 회원가입
-	public void signIn() {
+	public static void signIn() {
 		/*
 		 * 사용자 회원가입 메소드
 		 * 사용자가 입력해야 할 정보
@@ -91,6 +91,21 @@ public class MemberDAO extends DBConnection{
 		 * 3. 비밀번호 확인 (틀리면 처음으로 돌아감) -> 보류
 		 * 4. 주민번호 (앞, 뒤 구분해서 내부적으론 자를거임)
 		 * 5. 이름
+		 * 
+		 * 
+		 * 
+		 * 회원 테이블 : MEMBER
+		 * 
+		 * MEM_ID (NOT NULL)
+		 * MEM_PW (NOT NULL)
+		 * MEM_RGON1 (NOT NULL)
+		 * MEM_RGON2 (NOT NULL)
+		 * MEM_NM (NOT NULL)
+		 * MEM_TEL (NOT NULL)
+		 * MEM_ADD (NULL AVAIBLE)
+		 * MEM_PP (NULL AVAIABLE)
+		 * MEM_DEPM (NULL AVAIBLE)
+		 * MEM_ENAME (NOT NULL)
 		 * 
 		 * 
 		 * 
@@ -103,32 +118,78 @@ public class MemberDAO extends DBConnection{
 			System.out.println("메뉴로 돌아가기 : m , 뒤로가기 : < ");
 			while(true) { // while starts
 				System.out.print("사용할 아이디 입력 : "); // 아이디 입력
-				String id = bf.readLine();
+				String mem_id = bf.readLine();
 				
 				// 테이블은 아직 만들어지지 않았으므로 추후 만들예정, 지금은 다른 DB에서 테스트중.
-				stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id + "\'");
-				ResultSet rs = stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + id + "\'");
+				stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + mem_id + "\'");
+				ResultSet rs = stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + mem_id + "\'");
 				
 				//입력된 아이디로 조회가 된다면(rs에 값이 들어가있다면)
 				if(rs.next()) {
 					System.out.println("해당 아이디는 이미 존재하는 아이디입니다.");
 					continue;
 				}else {					
-					System.out.print("비밀번호 입력 : "); // 비밀번호 입력
-					String pw = bf.readLine();
-					System.out.print("주민번호(앞자리-뒷자리) : "); // 주민번호 입력
-					String regon = bf.readLine();
-					System.out.print("이름 입력 : "); // 이름입력
+					
+/*
+ * MEM_ID (NOT NULL)
+		 * MEM_PW (NOT NULL)
+		 * MEM_RGON1 (NOT NULL)
+		 * MEM_RGON2 (NOT NULL)
+		 * MEM_NM (NOT NULL)
+		 * MEM_TEL (NOT NULL)
+		 * MEM_ADD (NULL AVAIBLE)
+		 * MEM_PP (NULL AVAIABLE)
+		 * MEM_DEPM (NULL AVAIBLE)
+		 * MEM_ENAME (NOT NULL)
+ * 
+ * 
+ */
+					
+					System.out.print("비밀번호 입력 : "); // 비밀번호 입력 (MEM_PW)
+					String mem_pw = bf.readLine();
+					System.out.print("주민번호(앞자리) : "); // 주민번호 앞자리 입력 (MEM_RGON1)
+					String mem_regon1 = bf.readLine();
+					System.out.print("주민번호(뒷자리) : "); // 주민번호 뒷자리 입력(MEM_RGON2)
+					String mem_regon2 = bf.readLine();
+					System.out.print("이름 입력 : "); // 이름입력 (MEM_NM)
 					String mem_nm = bf.readLine();
-					System.out.print("전화번호 입력 : "); // 전화번호 입력
+					System.out.print("전화번호 입력 : "); // 전화번호 입력 (MEM_TEL)
 					String mem_tel = bf.readLine();
-					System.out.print("주소 : "); // 주소입력
+					System.out.print("주소 : "); // 주소입력 (MEM_ADD)
 					String mem_add =  bf.readLine();
+					System.out.print("여권번호 : "); // MEM_PP
+					String mem_pp = bf.readLine();
+					System.out.print("보유금액 : "); // MEM_DEPM
+					String mem_depm = bf.readLine();
+					System.out.print("영문성명 : "); // MEM_ENAME
+					String mem_ename = bf.readLine(); 
+					
+					
 					
 					/*
 					 * Insert문으로 데이터베이스에 집어넣은 후 while문 break
 					 * 
 					 */
+					
+					
+					String sign_query = "INSERT INTO MEMBER(MEM_ID, MEM_PW,"
+							+ "MEM_RGON1, MEM_RGON2, MEM_NM, MEM_TEL, MEM_ADD,"
+							+ "MEM_PP, MEM_DEPM, MEM_ENAME) "
+							+ " VALUES(" + "'" + mem_id + "' , " +
+							"'" + mem_pw + "' , " +
+							"'" + mem_regon1 + "' , " +
+							"'" + mem_regon2 + "' , " + 
+							"'" + mem_nm + "' , " + 
+							"'" + mem_tel + "' , " + 
+							"'" + mem_add + "' , " + 
+							"'" + mem_pp + "' , " + 
+							"'" + mem_depm + "' ," + 
+							"'" + mem_ename + "')";
+							
+					System.out.println(sign_query);
+					stmt.executeQuery(sign_query);
+					MemberView.menuView();
+					 
 					
 				}
 				

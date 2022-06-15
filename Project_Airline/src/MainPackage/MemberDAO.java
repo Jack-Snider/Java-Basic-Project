@@ -393,7 +393,7 @@ public class MemberDAO extends DBConnection{
 			
 		}
 		
-		
+		//최신커밋
 	}// 회원정보수정 끝
 	
 	

@@ -19,3 +19,5 @@ git push origin 쏘려는 브런치
 
 원격 ->  로컬
 git pull origin 브런치이름
+
+.

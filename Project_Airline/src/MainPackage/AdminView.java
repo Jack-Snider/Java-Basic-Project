@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+// 관리자 계정으로 들어왔을 때 관리자가 볼 화면 + 관리자의 기능 
 public class AdminView extends DBConnection{
 
 	
@@ -47,6 +48,10 @@ public class AdminView extends DBConnection{
 		
 	}
 	
+	
+	
+	
+	// 여기부터
 	
 	
 	

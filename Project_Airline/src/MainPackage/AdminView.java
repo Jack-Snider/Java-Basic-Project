@@ -4,15 +4,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-// °ü¸®ÀÚ °èÁ¤À¸·Î µé¾î¿ÔÀ» ¶§ °ü¸®ÀÚ°¡ º¼ È­¸é + °ü¸®ÀÚÀÇ ±â´É 
+// ê´€ë¦¬ì ê³„ì •ìœ¼ë¡œ ë“¤ì–´ì™”ì„ ë•Œ ê´€ë¦¬ìê°€ ë³¼ í™”ë©´ + ê´€ë¦¬ìì˜ ê¸°ëŠ¥ 
 public class AdminView extends DBConnection{
 
 	
-	public static void menuView() { // °ü¸®ÀÚ·Î ·Î±×ÀÎ ÇßÀ»¶§ Ã³À½ º¸´Â È­¸é
-		System.out.println("---------°ü¸®ÀÚ °èÁ¤---------");
+	public static void menuView() { // ê´€ë¦¬ìë¡œ ë¡œê·¸ì¸ í–ˆì„ë•Œ ì²˜ìŒ ë³´ëŠ” í™”ë©´
+		System.out.println("---------ê´€ë¦¬ì ê³„ì •---------");
 	}
 	
-	public static void showAllMember() { // È¸¿ø ÀüÃ¼º¸±â
+	public static void showAllMember() { // íšŒì› ì „ì²´ë³´ê¸°
 		
 		String query = "SELECT * FROM MEMBER";
 		
@@ -51,7 +51,7 @@ public class AdminView extends DBConnection{
 	
 	
 	
-	// ¿©±âºÎÅÍ
+	// ì—¬ê¸°ë¶€í„°
 	
 	
 	

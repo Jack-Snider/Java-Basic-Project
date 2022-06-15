@@ -2,12 +2,12 @@ package MainPackage;
 
 public class PaymentDTO {
 
-	String pay_num; //°áÁ¦¹øÈ£
-	String pay_mid; //È¸¿ø¾ÆÀÌµğ
-	int pay_amt; //°áÁ¦±İ¾×
-	int pay_tno; //Æ¼ÄÏ¹øÈ£
-	String pay_date; //°áÁ¦ÀÏÀÚ
-	boolean hasPayed; // °áÁ¦À¯¹«
+	String pay_num; //ê²°ì œë²ˆí˜¸
+	String pay_mid; //íšŒì›ì•„ì´ë””
+	int pay_amt; //ê²°ì œê¸ˆì•¡
+	int pay_tno; //í‹°ì¼“ë²ˆí˜¸
+	String pay_date; //ê²°ì œì¼ì
+	boolean hasPayed; // ê²°ì œìœ ë¬´
 
 	public String getPay_num() {
 		return pay_num;

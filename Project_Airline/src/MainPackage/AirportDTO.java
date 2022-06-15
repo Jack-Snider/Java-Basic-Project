@@ -2,9 +2,9 @@ package MainPackage;
 
 public class AirportDTO {
 
-	String airlineName; // Ç×°ø»ç¸í
-	String airlineFlight; //Ç×°ø»çÆí¸í
-	String airlineCode; // °øÇ×ÄÚµå
+	String airlineName; // í•­ê³µì‚¬ëª…
+	String airlineFlight; //í•­ê³µì‚¬íŽ¸ëª…
+	String airlineCode; // ê³µí•­ì½”ë“œ
 	
 	public String getAirlineName() {
 		return airlineName;

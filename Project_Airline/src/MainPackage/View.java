@@ -3,11 +3,11 @@ package MainPackage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-// »ç¿ëÀÚ¿¡°Ô º¸¿©Áú È­¸éµéÀ» Á¤ÀÇ ÇØ³õÀº Å¬·¡½º
+// ì‚¬ìš©ìì—ê²Œ ë³´ì—¬ì§ˆ í™”ë©´ë“¤ì„ ì •ì˜ í•´ë†“ì€ í´ë˜ìŠ¤
 public class View {
 
-	static boolean isLogined = false; // È¸¿øÀÇ ·Î±×ÀÎ »óÅÂ (·Î±×ÀÎ : true, ·Î±×¾Æ¿ô : false)
-	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in)); // ScannerÀÇ ±â´É
+	static boolean isLogined = false; // íšŒì›ì˜ ë¡œê·¸ì¸ ìƒíƒœ (ë¡œê·¸ì¸ : true, ë¡œê·¸ì•„ì›ƒ : false)
+	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in)); // Scannerì˜ ê¸°ëŠ¥
 	
 	public static void menuView() {
 		
@@ -15,23 +15,23 @@ public class View {
 		
 		/*
 		 * 
-		 * ·Î±×ÀÎ, È¸¿ø°¡ÀÔ, Ç×°øÁ¶È¸, Ç×°ø¿¹¾à,(ÀÌ½ºÅÍ¿¡±× : ÄÚÀÎÄ³±â) ,È¸¿øÁ¤º¸¼öÁ¤
-		 * È¸¿øÅ»Åğ
+		 * ë¡œê·¸ì¸, íšŒì›ê°€ì…, í•­ê³µì¡°íšŒ, í•­ê³µì˜ˆì•½,(ì´ìŠ¤í„°ì—ê·¸ : ì½”ì¸ìºê¸°) ,íšŒì›ì •ë³´ìˆ˜ì •
+		 * íšŒì›íƒˆí‡´
 		 * 
 		 * 
 		 */
 		
 		System.out.println();
 		System.out.println(" Command words");
-		System.out.println("¦£¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¤");
-		System.out.println("¦¢login(·Î±×ÀÎ) \t\t\t      ¦¢");
-		System.out.println("¦¢logout(·Î±×¾Æ¿ô)\t\t\t      ¦¢");
-		System.out.println("¦¢update(È¸¿ø¼öÁ¤)\t\t      ¦¢");	
-		System.out.println("¦¢delete(È¸¿øÅ»Åğ)\t\t\t      ¦¢");
-		System.out.println("¦¢signin(È¸¿ø°¡ÀÔ)\t\t\t      ¦¢");
-		System.out.println("¦¢srhair(Ç×°øÁ¶È¸)\t\t\t      ¦¢");
-		System.out.println("¦¢bkair(Ç×°ø¿¹¾à)\t\t\t      ¦¢");
-		System.out.println("¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¥");
+		System.out.println("â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”");
+		System.out.println("â”‚login(ë¡œê·¸ì¸) \t\t\t      â”‚");
+		System.out.println("â”‚logout(ë¡œê·¸ì•„ì›ƒ)\t\t\t      â”‚");
+		System.out.println("â”‚update(íšŒì›ìˆ˜ì •)\t\t      â”‚");	
+		System.out.println("â”‚delete(íšŒì›íƒˆí‡´)\t\t\t      â”‚");
+		System.out.println("â”‚signin(íšŒì›ê°€ì…)\t\t\t      â”‚");
+		System.out.println("â”‚srhair(í•­ê³µì¡°íšŒ)\t\t\t      â”‚");
+		System.out.println("â”‚bkair(í•­ê³µì˜ˆì•½)\t\t\t      â”‚");
+		System.out.println("â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜");
 		System.out.println();
 		System.out.print(MemberDAO.user_name + " >> ");
 		
@@ -41,7 +41,7 @@ public class View {
 
 			
 			
-			if(input.equalsIgnoreCase("login")) { // ·Î±×ÀÎ ±â´É 
+			if(input.equalsIgnoreCase("login")) { // ë¡œê·¸ì¸ ê¸°ëŠ¥ 
 				if(!isLogined) {
 					MemberDAO.accessDB();
 					
@@ -50,34 +50,34 @@ public class View {
 					System.out.print("PW : ");
 					String pw = bf.readLine();
 					
-					isLogined = MemberDAO.logIn(id, pw); // ·Î±×ÀÎ ÇÏ´Â ÇÔ¼ö, MemberDAO Å¬·¡½ºÀÇ login()¸Ş¼Òµå¸¦ È£Ãâ
+					isLogined = MemberDAO.logIn(id, pw); // ë¡œê·¸ì¸ í•˜ëŠ” í•¨ìˆ˜, MemberDAO í´ë˜ìŠ¤ì˜ login()ë©”ì†Œë“œë¥¼ í˜¸ì¶œ
 					System.out.println("isLogined : " + isLogined);
 					
 					
 					if(isLogined) {
 						System.out.println("-----------------------------------------");
-						System.out.println(MemberDAO.user_name + "´Ô ¹æ¹®À» È¯¿µÇÕ´Ï´Ù.");
+						System.out.println(MemberDAO.user_name + "ë‹˜ ë°©ë¬¸ì„ í™˜ì˜í•©ë‹ˆë‹¤.");
 						System.out.println("-----------------------------------------");
 						menuView();
 					}else {
-						System.out.println("·Î±×ÀÎ ½ÇÆĞ"); 
+						System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨"); 
 						menuView();
 					}
 				}else {
-					System.out.println("WARNING : ÀÌ¹Ì ·Î±×ÀÎ µÇÀÖ½À´Ï´Ù.");
+					System.out.println("WARNING : ì´ë¯¸ ë¡œê·¸ì¸ ë˜ìˆìŠµë‹ˆë‹¤.");
 					menuView();
 				}
 				
 				
-			} // ·Î±×ÀÎ ±â´É ³¡
+			} // ë¡œê·¸ì¸ ê¸°ëŠ¥ ë
 			
 			
 			
-			else if(input.equalsIgnoreCase("signin")){ // È¸¿ø°¡ÀÔ ±â´É ½ÃÀÛ
+			else if(input.equalsIgnoreCase("signin")){ // íšŒì›ê°€ì… ê¸°ëŠ¥ ì‹œì‘
 				MemberDAO.accessDB();
 				if(isLogined) {
 					System.out.println();
-					System.out.println("WARNING : È¸¿ø°¡ÀÔÀ» ÇÏ½Ã·Á¸é ¸ÕÀú ·Î±×¾Æ¿ôÀ» ÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+					System.out.println("WARNING : íšŒì›ê°€ì…ì„ í•˜ì‹œë ¤ë©´ ë¨¼ì € ë¡œê·¸ì•„ì›ƒì„ í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 					menuView();
 				}else {
 					MemberDAO.signIn();
@@ -85,61 +85,61 @@ public class View {
 				}
 				
 				
-			} // È¸¿ø°¡ÀÔ ±â´É ³¡
+			} // íšŒì›ê°€ì… ê¸°ëŠ¥ ë
 			
 			
-			else if(input.equalsIgnoreCase("logout")) { // ·Î±×¾Æ¿ô ±â´É ½ÃÀÛ
+			else if(input.equalsIgnoreCase("logout")) { // ë¡œê·¸ì•„ì›ƒ ê¸°ëŠ¥ ì‹œì‘
 				
-				if(isLogined) { // ·Î±×ÀÎÀÌ µÇ¾îÀÖ´Â »óÅÂ
+				if(isLogined) { // ë¡œê·¸ì¸ì´ ë˜ì–´ìˆëŠ” ìƒíƒœ
 					
 					MemberDAO.user_name = "";
 					System.out.println();
-					System.out.println("SUCCESS : Á¤»óÀûÀ¸·Î ·Î±×¾Æ¿ô ÇÏ¼Ì½À´Ï´Ù.");
+					System.out.println("SUCCESS : ì •ìƒì ìœ¼ë¡œ ë¡œê·¸ì•„ì›ƒ í•˜ì…¨ìŠµë‹ˆë‹¤.");
 					isLogined = false;
 					menuView();
 					
-				}else { // ·Î±×ÀÎÀÌ µÇ¾îÀÖÁö ¾ÊÀº »óÅÂ
+				}else { // ë¡œê·¸ì¸ì´ ë˜ì–´ìˆì§€ ì•Šì€ ìƒíƒœ
 					System.out.println();
-					System.out.println("WARNING : ÇöÀç ·Î±×ÀÎ µÇ¾îÀÖÁö ¾Ê½À´Ï´Ù. ´Ù½Ã È®ÀÎÇØÁÖ¼¼¿ä.");
+					System.out.println("WARNING : í˜„ì¬ ë¡œê·¸ì¸ ë˜ì–´ìˆì§€ ì•ŠìŠµë‹ˆë‹¤. ë‹¤ì‹œ í™•ì¸í•´ì£¼ì„¸ìš”.");
 					menuView();
 				}
 				
-			}// ·Î±×¾Æ¿ô ±â´É ³¡
+			}// ë¡œê·¸ì•„ì›ƒ ê¸°ëŠ¥ ë
 			
-			//È¸¿øÅ»Åğ
-			else if(input.equalsIgnoreCase("delete")) { // È¸¿øÅ»Åğ ½ÃÀÛ
+			//íšŒì›íƒˆí‡´
+			else if(input.equalsIgnoreCase("delete")) { // íšŒì›íƒˆí‡´ ì‹œì‘
 				if(isLogined) {
 					String tmp = "";
-					System.out.print("Á¤¸»·Î È¸¿øÅ»Åğ¸¦ ÇÏ½Ç°Ì´Ï±î?(YES/NO) >> ");
+					System.out.print("ì •ë§ë¡œ íšŒì›íƒˆí‡´ë¥¼ í•˜ì‹¤ê²ë‹ˆê¹Œ?(YES/NO) >> ");
 					tmp = bf.readLine();
 					if(tmp.equalsIgnoreCase("YES")) {
-						System.out.println("´ÙÀ½°ú °°Àº ¹®±¸¸¦ ÀÛ¼ºÇØÁÖ¼¼¿ä..");
+						System.out.println("ë‹¤ìŒê³¼ ê°™ì€ ë¬¸êµ¬ë¥¼ ì‘ì„±í•´ì£¼ì„¸ìš”..");
 						System.out.println("'" + MemberDAO.user_id + " is free'");
 						System.out.print(MemberDAO.user_id + " >> ");
 						tmp = bf.readLine();
 						if(tmp.equals(MemberDAO.user_id + " is free")) {
 							MemberDAO.deleteAccount();
 							isLogined = false;
-							System.out.println("Á¤»óÀûÀ¸·Î Å»Åğ ÇÏ¼Ì½À´Ï´Ù.. ´ÙÀ½¿¡ ¶Ç ¿À½Ã±æ..");
+							System.out.println("ì •ìƒì ìœ¼ë¡œ íƒˆí‡´ í•˜ì…¨ìŠµë‹ˆë‹¤.. ë‹¤ìŒì— ë˜ ì˜¤ì‹œê¸¸..");
 							menuView();
 							
 						}else {
-							System.out.println("WARNING : Àß¸ø ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.");
+							System.out.println("WARNING : ì˜ëª» ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
 							menuView();
 						}
 						//System.out.println(user_id );
 					}else {
 						menuView();
-						System.out.println("Á¶±İ ´õ »ı°¢ÇÏ°í ¿ÍÁÖ¼¼¿ä.. ¤Ì¤Ì");
+						System.out.println("ì¡°ê¸ˆ ë” ìƒê°í•˜ê³  ì™€ì£¼ì„¸ìš”.. ã…œã…œ");
 					}
 					
 					
 					menuView();
 				}else {
-					System.out.println("WARNING : ¸ÕÀú ·Î±×ÀÎÀ» ÇØÁÖ¼¼¿ä.");
+					System.out.println("WARNING : ë¨¼ì € ë¡œê·¸ì¸ì„ í•´ì£¼ì„¸ìš”.");
 					menuView();
 				}
-			}// È¸¿øÅ»Åğ ³¡
+			}// íšŒì›íƒˆí‡´ ë
 			
 			else if(input.equalsIgnoreCase("update")) {
 				if(isLogined) {
@@ -147,7 +147,7 @@ public class View {
 					
 					
 				}else {
-					System.out.println("WARNING : ·Î±×ÀÎÀ» ¸ÕÀú ÇÏ¼Å¾ß ÇÕ´Ï´Ù.");
+					System.out.println("WARNING : ë¡œê·¸ì¸ì„ ë¨¼ì € í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
 					menuView();
 				}
 			}

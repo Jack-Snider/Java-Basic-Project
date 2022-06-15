@@ -2,31 +2,31 @@ package MainPackage;
 
 import java.util.ArrayList;
 
-//╫гаЗюШюн юш╬Вюл юл╥Г╬НаЖ╢б е╛╥║╫╨ (DB©╛╣©, CRUD ╣Н...)
+//Л▀╓Л╖┬Л═│Л²╦ Л·▒Л≈┘Л²╢ Л²╢Кё╗Л√╢Л╖─К┼■ М│╢К·≤Л┼╓ (DBЛ≈╟К▐≥, CRUD К⌠╠...)
 public class TicketDAO extends DBConnection{
 
 	
-	ArrayList<String> ticList = new ArrayList<String>(); // ф╪до ╦Я╥ою╩ юЗюЕгр ╨╞╪Ж
+	ArrayList<String> ticList = new ArrayList<String>(); // М▀╟Л╪⌠ К╙╘К║²Л²└ Л═─Л·╔М∙═ КЁ─Л┬≤
 	
-	// ╣╔юлем╨ёюл╫╨ ©╛╟А
+	// К█╟Л²╢М└╟К╡═Л²╢Л┼╓ Л≈╟Й╡╟
 	public void accessDB() {
 		DBConnection.getConnection();
 	}
 	
-	// ╠╦╦егя ╦П╣Г ф╪до ╨╦©╘аэ
+	// Й╣╛К╖╓М∙° К╙╗К⌠═ М▀╟Л╪⌠ КЁ╢Л≈╛Л╓▄
 	public void showTicketList() {
 		/*
-		 * ф╪до ╦Я╥ою╩ ╨╦©╘аж╟М ╠в аъ©║╪╜ гоЁ╙╦╕ ╪╠ецгь╪╜
-		 * ╣Певюого╟т ╨╦©╘аэ
+		 * М▀╟Л╪⌠ К╙╘К║²Л²└ КЁ╢Л≈╛Лё╪ЙЁ═ Й╥╦ Л╓▒Л≈░Л└° М∙≤К┌≤К╔╪ Л└═М┐²М∙╢Л└°
+		 * К■■М┘▄Л²╪М∙≤Й╡▄ КЁ╢Л≈╛Л╓▄
 		 * 
 		 * 
 		 * 
 		 */
 	}
 	
-	// ╠╦╦егя гоЁ╙юг ф╪дою╩ ╨╦©╘аэ
+	// Й╣╛К╖╓М∙° М∙≤К┌≤Л²≤ М▀╟Л╪⌠Л²└ КЁ╢Л≈╛Л╓▄
 	public void showDetailTicket() {
-		// ╣Пдоюг ╩С╪╪а╓╨╦╦╕ г╔╠Б
+		// К■■Л╪⌠Л²≤ Л┐│Л└╦Л═∙КЁ╢К╔╪ М▒°Й╦╟
 	}
 	
 	

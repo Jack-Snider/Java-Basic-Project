@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 //실질적인 작업이 이루어지는 클래스 (DB연동, CRUD 등...)
@@ -31,7 +32,9 @@ public class MemberDAO extends DBConnection{
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	static Connection conn;
 	static boolean isLogined = false; // <- login status
+	static MemberDAO worker = new MemberDAO();
 	MemberDTO memDTO;
+
 	
 	// 먼저 DB에 연동.
 	public static void accessDB() {
@@ -286,92 +289,31 @@ public class MemberDAO extends DBConnection{
 			String input = bf.readLine();
 			
 			
-			String qry = "";
+
 			
 			if(input.equalsIgnoreCase("pw")) { // 비밀번호 변경 선택
 				
-				System.out.println("변경할 비밀번호를 입력!");
-				System.out.print(user_name + " >> ");
-				String pw_change = bf.readLine();
-				
-				qry = "UPDATE MEMBER SET MEM_PW = " + "'" + pw_change + "'" + " WHERE MEM_ID = "
-							+ "'" + user_id + "'";
-				
-				stmt.executeQuery(qry);
-				System.out.println();
-				System.out.println("┌─────────────────┐");
-				System.out.println("│비밀번호가 정상적으로 변경되었습니다!   │");
-				System.out.println("└─────────────────┘");
-				View.menuView();
+				// 단순히 updateTo메소드를 사용하기 위한 임시 객체를 만듬
+				//new MemberDAO().updateTo("비밀번호", "MEM_PW");
+				worker.updateTo("비밀번호", "MEM_PW");
 				
 				
 			}else if(input.equalsIgnoreCase("enm")) { // 영문성명 변경 선택
 				
-				System.out.println("변경할 영문명 입력!");
-				System.out.print(user_name + " >> ");
-				String ename_change = bf.readLine();
-				
-				qry = "UPDATE MEMBER SET MEM_ENAME = " + "'" + ename_change + "'" + " WHERE MEM_ID = "
-							+ "'" + user_id + "'";
-				
-				
-				stmt.executeQuery(qry);
-				System.out.println();
-				System.out.println("┌─────────────────┐");
-				System.out.println("│영문성명이 정상적으로 변경되었습니다!  │");
-				System.out.println("└─────────────────┘");
-				View.menuView();
+				worker.updateTo("영문성명", "MEM_ENAME");
 				
 			}else if(input.equalsIgnoreCase("tel")) { // 전화번호 변경 선택
 				
-				System.out.println("변경할 전화번호 입력!");
-				System.out.print(user_name + " >> ");
-				String tel_change = bf.readLine();
-				
-				qry = "UPDATE MEMBER SET MEM_TEL = " + "'" + tel_change + "'" + " WHERE MEM_ID = "
-							+ "'" + user_id + "'";
-				
-				
-				stmt.executeQuery(qry);
-				System.out.println();
-				System.out.println("┌─────────────────┐");
-				System.out.println("│전화번호가 정상적으로 변경되었습니다!  │");
-				System.out.println("└─────────────────┘");
-				View.menuView();
+				worker.updateTo("전화번호", "MEM_TEL");
 				
 			}else if(input.equalsIgnoreCase("add")) {// 주소 변경 선택
 				
-				System.out.println("변경할 주소 입력!");
-				System.out.print(user_name + " >> ");
-				String add_change = bf.readLine();
-				
-				qry = "UPDATE MEMBER SET MEM_ADD = " + "'" + add_change + "'" + " WHERE MEM_ID = "
-							+ "'" + user_id + "'";
-				
-				
-				stmt.executeQuery(qry);
-				System.out.println();
-				System.out.println("┌─────────────────┐");
-				System.out.println("│주소가 정상적으로 변경되었습니다!         │");
-				System.out.println("└─────────────────┘");
-				View.menuView();
+				worker.updateTo("주소", "MEM_ADD");
 				
 			}else if(input.equalsIgnoreCase("pp")) { // 여권번호 변경 선택
 				
-				System.out.println("새로운 입력!");
-				System.out.print(user_name + " >> ");
-				String pp_change = bf.readLine();
+				worker.updateTo("여권번호", "MEM_PP");
 				
-				qry = "UPDATE MEMBER SET MEM_ENAME = " + "'" + pp_change + "'" + " WHERE MEM_ID = "
-							+ "'" + user_id + "'";
-				
-				
-				stmt.executeQuery(qry);
-				System.out.println();
-				System.out.println("┌─────────────────┐");
-				System.out.println("│여권번호가 정상적으로 변경되었습니다!  │");
-				System.out.println("└─────────────────┘");
-				View.menuView();
 			}else {
 				
 				System.out.println("                           ─── ");
@@ -395,6 +337,43 @@ public class MemberDAO extends DBConnection{
 		
 		//최신커밋
 	}// 회원정보수정 끝
+	
+	
+	public void updateTo(String what_to_change, String column ) {
+		// 들어갈 매개변수 : 변경할 항목, 그 항목의 데이터베이스 컬럼명
+		
+		
+		String qry = "";
+		
+		try {
+			
+			System.out.println("변경할" + what_to_change  + " 입력!");
+			System.out.print(user_name + " >> ");
+			String tmp = bf.readLine();
+			
+			qry = "UPDATE MEMBER SET " +  column + " = " + "'" + tmp + "'" + " WHERE MEM_ID = "
+					+ "'" + user_id + "'";
+			
+			Statement stmt = conn.createStatement();
+			
+			stmt.executeQuery(qry);
+			System.out.println();
+			System.out.println("┌─────────────────┐");
+			System.out.println("│"  + what_to_change + " 변경 완료      ");
+			System.out.println("└─────────────────┘");
+			View.menuView();
+			
+		}catch(SQLException sqle) {
+			System.out.println("SQL ERROR : " + sqle);
+		}catch(Exception e) {
+			System.out.println("Unknown Error : " + e);
+		}
+		
+		
+	}
+	
+	
+	
 	
 	
 }

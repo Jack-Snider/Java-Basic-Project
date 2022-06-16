@@ -9,7 +9,27 @@ public class AdminView extends DBConnection{
 
 	
 	public static void menuView() { // 관리자로 로그인 했을때 처음 보는 화면
-		System.out.println("---------관리자 계정---------");
+		
+		System.out.println();
+		System.out.println();
+		System.out.println("ZZ                                  ZZZZZZZZZ         ZZ                 ZZ       ZZZZZZZZZZ    ");
+		System.out.println("ZZ                              ZZ                  ZZ         ZZ              ZZ        ZZ                       ");
+		System.out.println("ZZ                            ZZ                     ZZ          ZZ          ZZ          ZZ                       ");
+		System.out.println("ZZ                             ZZ                    ZZ             ZZ      ZZ           ZZZZZZZZZZ     ");
+		System.out.println("ZZ                              ZZ                   ZZ                ZZ  ZZ            ZZ                        ");
+		System.out.println("ZZZZZZZZZZZZ         ZZZZZZZZZZ                      ZZ               ZZZZZZZZZZ     ");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		
+		
+		System.out.println("┌────── Accessed to as Administrator ───────┐");
+		System.out.println("│	show me the money : 모든 회원에게 1,000,000원 지급");
+		System.out.println("│	");
+		System.out.println("│	");
+		System.out.println("│	");
+		System.out.println("└────── ─────────────── ───────┘");
+		
 	}
 	
 	public static void showAllMember() { // 회원 전체보기

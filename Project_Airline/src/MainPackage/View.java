@@ -9,9 +9,8 @@ public class View {
 	static boolean isLogined = false; // 회원의 로그인 상태 (로그인 : true, 로그아웃 : false)
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in)); // Scanner의 기능
 	
+	// 사용자가 처음 로그인 했을때와 앞으로 보여질 화면
 	public static void menuView() {
-		
-	
 		
 		/*
 		 * 
@@ -40,10 +39,12 @@ public class View {
 			String input = bf.readLine();
 
 			
+//-------------------------------------------------------------------------------			
 			
+			// 로그인
 			if(input.equalsIgnoreCase("login")) { // 로그인 기능 
 				if(!isLogined) {
-					MemberDAO.accessDB();
+					MemberDAO.accessDB(); // 데이터베이스 연동 (MemberDAO 클래스의 accessDB() 메소드 호출
 					
 					System.out.print("ID : ");
 					String id = bf.readLine();
@@ -71,8 +72,9 @@ public class View {
 				
 			} // 로그인 기능 끝
 			
+//-------------------------------------------------------------------------------			
 			
-			
+			// 회원가입
 			else if(input.equalsIgnoreCase("signin")){ // 회원가입 기능 시작
 				MemberDAO.accessDB();
 				if(isLogined) {
@@ -86,8 +88,10 @@ public class View {
 				
 				
 			} // 회원가입 기능 끝
+
+//-------------------------------------------------------------------------------
 			
-			
+			// 로그아웃
 			else if(input.equalsIgnoreCase("logout")) { // 로그아웃 기능 시작
 				
 				if(isLogined) { // 로그인이 되어있는 상태
@@ -105,6 +109,8 @@ public class View {
 				}
 				
 			}// 로그아웃 기능 끝
+//-------------------------------------------------------------------------------
+			
 			
 			//회원탈퇴
 			else if(input.equalsIgnoreCase("delete")) { // 회원탈퇴 시작
@@ -141,32 +147,37 @@ public class View {
 				}
 			}// 회원탈퇴 끝
 			
-			else if(input.equalsIgnoreCase("update")) {
+			
+//-------------------------------------------------------------------------------
+			
+			// 회원정보 수정
+			else if(input.equalsIgnoreCase("update")) { // 회원정보 수정 시작
 				if(isLogined) {
-					MemberDAO.update();
 					
+					MemberDAO.update();				
 					
 				}else {
 					System.out.println("WARNING : 로그인을 먼저 하셔야 합니다.");
 					menuView();
 				}
+			} // 회원정보 수정 끝
+			
+			
+			
+			else if(input.equals("vly vly lovely moogon")) {
+					new AdminView().menuView();
 			}
 			
 			
-			
+		// try	
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
 	}
+	
+	
 	
 	
 }

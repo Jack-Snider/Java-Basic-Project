@@ -2,6 +2,15 @@ package MainPackage;
 
 public class PaymentDTO {
 
+	
+	// 외부에서 생성자를 호출하지 못하게 막음(싱글톤으로 운영할 예정)
+	private PaymentDTO() {}
+	
+	// 앞으로 외부에서 사용할 유일한 PaymentDTO 객체(싱글톤)
+	private static PaymentDTO payment = new PaymentDTO(); 
+	
+	
+	
 	String pay_num; //결제번호
 	String pay_mid; //회원아이디
 	int pay_amt; //결제금액
@@ -9,6 +18,14 @@ public class PaymentDTO {
 	String pay_date; //결제일자
 	boolean hasPayed; // 결제유무
 
+	
+	// PaymentDTO의 객체를 리턴 (다른 클래스에서 이 클래스로 객체를 받아 쓸 예정)
+	public static PaymentDTO getPaymentDTO_Instance() {
+		
+		return payment;
+		
+	}
+	
 	public String getPay_num() {
 		return pay_num;
 	}

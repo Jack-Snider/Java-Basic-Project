@@ -2,16 +2,16 @@ package MainPackage;
 
 public class TicketDTO {
 
-	String tk_tno; // Æ¼ÄÏ¹øÈ£
-	String tk_depda; // Ãâ¹ßÀÏÀÚ
-	int tk_pr; // °¡°İ
-	int tk_cnt; // ¼ö·®
-	String tk_gate; // Å¾½Â±¸
-	String tk_mid; // È¸¿ø¾ÆÀÌµğ
-	String tk_acd; // Ç×°ø»çÄÚµå
-	String tk_gin; // µµÂøÁö °øÇ×ÄÚµå
-	String tk_gout; // Ãâ¹ßÁö °øÇ×ÄÚµå
-	String tk_ename; // Å½½Â°´ ¿µ¹®¸í
+	String tk_tno; // í‹°ì¼“ë²ˆí˜¸
+	String tk_depda; // ì¶œë°œì¼ì
+	int tk_pr; // ê°€ê²©
+	int tk_cnt; // ìˆ˜ëŸ‰
+	String tk_gate; // íƒ‘ìŠ¹êµ¬
+	String tk_mid; // íšŒì›ì•„ì´ë””
+	String tk_acd; // í•­ê³µì‚¬ì½”ë“œ
+	String tk_gin; // ë„ì°©ì§€ ê³µí•­ì½”ë“œ
+	String tk_gout; // ì¶œë°œì§€ ê³µí•­ì½”ë“œ
+	String tk_ename; // íƒìŠ¹ê° ì˜ë¬¸ëª…
 	
 	
 	public String getTk_tno() {

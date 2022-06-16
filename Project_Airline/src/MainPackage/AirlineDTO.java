@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class AirlineDTO {
 
 	
-	String air_code; //Ç×°ø»çÄÚµå
-	String air_name; //Ç×°ø»ç¸í
-	String air_flt; //Ç×°ø»çÆí¸í
-	String air_icn; //Ãâ¹ßÁö°øÇ×ÄÚµå
-	String air_avl; //µµÂøÁö°øÇ×ÄÚµå
+	String air_code; //í•­ê³µì‚¬ì½”ë“œ
+	String air_name; //í•­ê³µì‚¬ëª…
+	String air_flt; //í•­ê³µì‚¬í¸ëª…
+	String air_icn; //ì¶œë°œì§€ê³µí•­ì½”ë“œ
+	String air_avl; //ë„ì°©ì§€ê³µí•­ì½”ë“œ
 	
 	
 	

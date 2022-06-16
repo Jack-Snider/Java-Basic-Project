@@ -6,37 +6,42 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
-//½ÇÁúÀûÀÎ ÀÛ¾÷ÀÌ ÀÌ·ç¾îÁö´Â Å¬·¡½º (DB¿¬µ¿, CRUD µî...)
+//ì‹¤ì§ˆì ì¸ ì‘ì—…ì´ ì´ë£¨ì–´ì§€ëŠ” í´ë˜ìŠ¤ (DBì—°ë™, CRUD ë“±...)
 public class MemberDAO extends DBConnection{
 	
 	static String user_name = "";
-	static boolean adminLog = false;  // °ü¸®ÀÚ°¡ ·Î±×ÀÎ Çß´ÂÁ¦ È®ÀÎ
+	static String user_id = "";
+	static boolean adminLog = false;  // ê´€ë¦¬ìê°€ ë¡œê·¸ì¸ í–ˆëŠ”ì œ í™•ì¸
 	/*
 	 * 
-	 * -±â´É(Functions)-
-	 * 1. È¸¿ø°¡ÀÔ(SignIn)
-	 * 2. ·Î±×ÀÎ(LogIn) , ·Î±×¾Æ¿ô(Logout)
-	 * 3. È¸¿øÅ»Åğ(delAccount)
-	 * 4. ¿¹¸Å³»¿ª È®ÀÎ(checkReserve)
-	 * 5. ¿¹¸Å³»¿ª ¼öÁ¤(updateReserve)
-	 * 6. ³»Á¤º¸¼öÁ¤(updateInfo)
-	 * 7. Ç×°ø±Ç¼±ÅÃ(pickFlight)
-	 * 8. Ç×°ø±Ç°áÁ¦(payFlight)
+	 * -ê¸°ëŠ¥(Functions)-
+	 * 1. íšŒì›ê°€ì…(SignIn)
+	 * 2. ë¡œê·¸ì¸(LogIn) , ë¡œê·¸ì•„ì›ƒ(Logout)
+	 * 3. íšŒì›íƒˆí‡´(delAccount)
+	 * 4. ì˜ˆë§¤ë‚´ì—­ í™•ì¸(checkReserve)
+	 * 5. ì˜ˆë§¤ë‚´ì—­ ìˆ˜ì •(updateReserve)
+	 * 6. ë‚´ì •ë³´ìˆ˜ì •(updateInfo)
+	 * 7. í•­ê³µê¶Œì„ íƒ(pickFlight)
+	 * 8. í•­ê³µê¶Œê²°ì œ(payFlight)
 	 * 
 	 */
 	
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	static Connection conn;
+	static boolean isLogined = false; // <- login status
+	static MemberDAO worker = new MemberDAO();
 	MemberDTO memDTO;
+
 	
-	// ¸ÕÀú DB¿¡ ¿¬µ¿.
+	// ë¨¼ì € DBì— ì—°ë™.
 	public static void accessDB() {
 		conn = DBConnection.getConnection();
 	}
 	
-	// È¸¿øÅ»Åğ - Delete Account
+	// íšŒì›íƒˆí‡´ - Delete Account
 	public void delAccount() {
 		
 		// logined check first
@@ -44,11 +49,11 @@ public class MemberDAO extends DBConnection{
 		
 	}
 	
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 	public static boolean logIn(String id, String pw) {
 		// This method returns true for login success
 		
-		boolean isLogined = false; // <- login status
+		
 		
 		String query = "SELECT * FROM MEMBER WHERE MEM_ID = " + " '" + id 
 									+ "' " + " AND " + "MEM_PW = " + " '" + pw + "'";
@@ -61,12 +66,13 @@ public class MemberDAO extends DBConnection{
 			ResultSet rs = stmt.executeQuery(query);
 			
 			if(rs.next()) {
-				// »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¾ÆÀÌµğ¿Í ºñ¹øÀÌ µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ÀÏÄ¡ÇÏ´Â°Ô Á¸Àç
+				// ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì•„ì´ë””ì™€ ë¹„ë²ˆì´ ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ì¼ì¹˜í•˜ëŠ”ê²Œ ì¡´ì¬
 				user_name = rs.getString("MEM_NM");
+				user_id = rs.getString("MEM_ID");
 				isLogined = true;
 				
 			}else {
-				System.out.println("¾ÆÀÌµğ/ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê°Å³ª °¡ÀÔµÈ È¸¿øÀÌ ¾Æ´Õ´Ï´Ù.");
+				System.out.println("ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•Šê±°ë‚˜ ê°€ì…ëœ íšŒì›ì´ ì•„ë‹™ë‹ˆë‹¤.");
 				
 				
 			}
@@ -81,20 +87,20 @@ public class MemberDAO extends DBConnection{
 	}
 	
 	
-	// È¸¿ø°¡ÀÔ
+	// íšŒì›ê°€ì…
 	public static void signIn() {
 		/*
-		 * »ç¿ëÀÚ È¸¿ø°¡ÀÔ ¸Ş¼Òµå
-		 * »ç¿ëÀÚ°¡ ÀÔ·ÂÇØ¾ß ÇÒ Á¤º¸
-		 * 1. È¸¿ø¾ÆÀÌµğ (Áßº¹°Ë»ç ½Ç½Ã)
-		 * 2. ºñ¹Ğ¹øÈ£
-		 * 3. ºñ¹Ğ¹øÈ£ È®ÀÎ (Æ²¸®¸é Ã³À½À¸·Î µ¹¾Æ°¨) -> º¸·ù
-		 * 4. ÁÖ¹Î¹øÈ£ (¾Õ, µÚ ±¸ºĞÇØ¼­ ³»ºÎÀûÀ¸·Ğ ÀÚ¸¦°ÅÀÓ)
-		 * 5. ÀÌ¸§
+		 * ì‚¬ìš©ì íšŒì›ê°€ì… ë©”ì†Œë“œ
+		 * ì‚¬ìš©ìê°€ ì…ë ¥í•´ì•¼ í•  ì •ë³´
+		 * 1. íšŒì›ì•„ì´ë”” (ì¤‘ë³µê²€ì‚¬ ì‹¤ì‹œ)
+		 * 2. ë¹„ë°€ë²ˆí˜¸
+		 * 3. ë¹„ë°€ë²ˆí˜¸ í™•ì¸ (í‹€ë¦¬ë©´ ì²˜ìŒìœ¼ë¡œ ëŒì•„ê°) -> ë³´ë¥˜
+		 * 4. ì£¼ë¯¼ë²ˆí˜¸ (ì•, ë’¤ êµ¬ë¶„í•´ì„œ ë‚´ë¶€ì ìœ¼ë¡  ìë¥¼ê±°ì„)
+		 * 5. ì´ë¦„
 		 * 
 		 * 
 		 * 
-		 * È¸¿ø Å×ÀÌºí : MEMBER
+		 * íšŒì› í…Œì´ë¸” : MEMBER
 		 * 
 		 * MEM_ID (NOT NULL)
 		 * MEM_PW (NOT NULL)
@@ -115,18 +121,17 @@ public class MemberDAO extends DBConnection{
 			Statement stmt = conn.createStatement();
 			
 			
-			System.out.println("¸Ş´º·Î µ¹¾Æ°¡±â : m , µÚ·Î°¡±â : < ");
+			System.out.println("ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸° : m , ë’¤ë¡œê°€ê¸° : < ");
 			while(true) { // while starts
-				System.out.print("»ç¿ëÇÒ ¾ÆÀÌµğ ÀÔ·Â : "); // ¾ÆÀÌµğ ÀÔ·Â
+				System.out.print("ì‚¬ìš©í•  ì•„ì´ë”” ì…ë ¥ : "); // ì•„ì´ë”” ì…ë ¥
 				String mem_id = bf.readLine();
 				
-				// Å×ÀÌºíÀº ¾ÆÁ÷ ¸¸µé¾îÁöÁö ¾Ê¾ÒÀ¸¹Ç·Î ÃßÈÄ ¸¸µé¿¹Á¤, Áö±İÀº ´Ù¸¥ DB¿¡¼­ Å×½ºÆ®Áß.
-				stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + mem_id + "\'");
+				// í…Œì´ë¸”ì€ ì•„ì§ ë§Œë“¤ì–´ì§€ì§€ ì•Šì•˜ìœ¼ë¯€ë¡œ ì¶”í›„ ë§Œë“¤ì˜ˆì •, ì§€ê¸ˆì€ ë‹¤ë¥¸ DBì—ì„œ í…ŒìŠ¤íŠ¸ì¤‘.
 				ResultSet rs = stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + mem_id + "\'");
 				
-				//ÀÔ·ÂµÈ ¾ÆÀÌµğ·Î Á¶È¸°¡ µÈ´Ù¸é(rs¿¡ °ªÀÌ µé¾î°¡ÀÖ´Ù¸é)
+				//ì…ë ¥ëœ ì•„ì´ë””ë¡œ ì¡°íšŒê°€ ëœë‹¤ë©´(rsì— ê°’ì´ ë“¤ì–´ê°€ìˆë‹¤ë©´)
 				if(rs.next()) {
-					System.out.println("ÇØ´ç ¾ÆÀÌµğ´Â ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+					System.out.println("í•´ë‹¹ ì•„ì´ë””ëŠ” ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 					continue;
 				}else {					
 					
@@ -145,29 +150,29 @@ public class MemberDAO extends DBConnection{
  * 
  */
 					
-					System.out.print("ºñ¹Ğ¹øÈ£ ÀÔ·Â : "); // ºñ¹Ğ¹øÈ£ ÀÔ·Â (MEM_PW)
+					System.out.print("ë¹„ë°€ë²ˆí˜¸ ì…ë ¥ : "); // ë¹„ë°€ë²ˆí˜¸ ì…ë ¥ (MEM_PW)
 					String mem_pw = bf.readLine();
-					System.out.print("ÁÖ¹Î¹øÈ£(¾ÕÀÚ¸®) : "); // ÁÖ¹Î¹øÈ£ ¾ÕÀÚ¸® ÀÔ·Â (MEM_RGON1)
+					System.out.print("ì£¼ë¯¼ë²ˆí˜¸(ì•ìë¦¬) : "); // ì£¼ë¯¼ë²ˆí˜¸ ì•ìë¦¬ ì…ë ¥ (MEM_RGON1)
 					String mem_regon1 = bf.readLine();
-					System.out.print("ÁÖ¹Î¹øÈ£(µŞÀÚ¸®) : "); // ÁÖ¹Î¹øÈ£ µŞÀÚ¸® ÀÔ·Â(MEM_RGON2)
+					System.out.print("ì£¼ë¯¼ë²ˆí˜¸(ë’·ìë¦¬) : "); // ì£¼ë¯¼ë²ˆí˜¸ ë’·ìë¦¬ ì…ë ¥(MEM_RGON2)
 					String mem_regon2 = bf.readLine();
-					System.out.print("ÀÌ¸§ ÀÔ·Â : "); // ÀÌ¸§ÀÔ·Â (MEM_NM)
+					System.out.print("ì´ë¦„ ì…ë ¥ : "); // ì´ë¦„ì…ë ¥ (MEM_NM)
 					String mem_nm = bf.readLine();
-					System.out.print("ÀüÈ­¹øÈ£ ÀÔ·Â : "); // ÀüÈ­¹øÈ£ ÀÔ·Â (MEM_TEL)
+					System.out.print("ì „í™”ë²ˆí˜¸ ì…ë ¥ : "); // ì „í™”ë²ˆí˜¸ ì…ë ¥ (MEM_TEL)
 					String mem_tel = bf.readLine();
-					System.out.print("ÁÖ¼Ò : "); // ÁÖ¼ÒÀÔ·Â (MEM_ADD)
+					System.out.print("ì£¼ì†Œ : "); // ì£¼ì†Œì…ë ¥ (MEM_ADD)
 					String mem_add =  bf.readLine();
-					System.out.print("¿©±Ç¹øÈ£ : "); // MEM_PP
+					System.out.print("ì—¬ê¶Œë²ˆí˜¸ : "); // MEM_PP
 					String mem_pp = bf.readLine();
-					System.out.print("º¸À¯±İ¾× : "); // MEM_DEPM
+					System.out.print("ë³´ìœ ê¸ˆì•¡ : "); // MEM_DEPM
 					String mem_depm = bf.readLine();
-					System.out.print("¿µ¹®¼º¸í : "); // MEM_ENAME
+					System.out.print("ì˜ë¬¸ì„±ëª… : "); // MEM_ENAME
 					String mem_ename = bf.readLine(); 
 					
 					
 					
 					/*
-					 * Insert¹®À¸·Î µ¥ÀÌÅÍº£ÀÌ½º¿¡ Áı¾î³ÖÀº ÈÄ while¹® break
+					 * Insertë¬¸ìœ¼ë¡œ ë°ì´í„°ë² ì´ìŠ¤ì— ì§‘ì–´ë„£ì€ í›„ whileë¬¸ break
 					 * 
 					 */
 					
@@ -188,7 +193,7 @@ public class MemberDAO extends DBConnection{
 							
 					System.out.println(sign_query);
 					stmt.executeQuery(sign_query);
-					MemberView.menuView();
+					View.menuView();
 					 
 					
 				}
@@ -211,25 +216,164 @@ public class MemberDAO extends DBConnection{
 	}
 	
 	
-	public void select(String query) {
+	// íšŒì›íƒˆí‡´
+	public static void deleteAccount() { //íšŒì›íƒˆí‡´ ì‹œì‘
+		
+		String query = "DELETE FROM MEMBER WHERE MEM_ID = " + "'" + user_id + "'";
+	
+		
 		
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeQuery(query);
-			ResultSet rs = stmt.executeQuery(query);
-			
-			while(rs.next()) { // ResultSet¿¡ ´ÙÀ½ °ªÀÌ ¾øÀ» ¶§±îÁö Ãâ·Â
-				String mem_id = rs.getString("MEM_ID");
-				String mem_name = rs.getString("MEM_NAME");
-				
-				System.out.println("ID : " + mem_id + " , " + "Name : " + mem_name);
-				
-			}
-			
+			user_name = "";	
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
+		
+		
+	} // íšŒì›íƒˆí‡´ ë
+	
+	//íšŒì›ì •ë³´ ìˆ˜ì •
+	public static void update() { // íšŒì›ì •ë³´ìˆ˜ì • ì‹œì‘
+		
+		/*
+		 * íšŒì› ìŠ¤ìŠ¤ë¡œê°€ ìˆ˜ì •í•  ìˆ˜ ìˆëŠ” í•­ëª©
+		 * 1. ë¹„ë°€ë²ˆí˜¸
+		 * 2. ì´ë¦„
+		 * 3. ì˜ì–´ì´ë¦„
+		 * 4. ì „í™”ë²ˆí˜¸
+		 * 5. ì£¼ì†Œ
+		 * 6. ì—¬ê¶Œë²ˆí˜¸
+		 */
+		
+		// íšŒì›ì˜ ì •ë³´ë¥¼ ë¨¼ì € ì¶œë ¥í•´ì¤Œ. (ìì‹ ì˜ ì •ë³´ë¥¼ ë³´ë©´ì„œ ë¬´ì—‡ì„ ìˆ˜ì •í•˜ê³  ì‹¶ì€ì§€ ì„ íƒí•  ìˆ˜ ìˆê²Œ)
+		try {
+			
+			String query = "SELECT * FROM MEMBER WHERE MEM_ID = " + "'" + user_id + "'";
+			
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				
+				String mem_id = rs.getString("MEM_ID");
+				String mem_pw = rs.getString("MEM_PW");
+				String mem_rgon1 = rs.getString("MEM_RGON1");
+				String mem_rgon2 = rs.getString("MEM_RGON2");
+				String mem_nm = rs.getString("MEM_NM");
+				String mem_ename = rs.getString("MEM_ENAME");
+				String mem_tel = rs.getString("MEM_TEL");
+				String mem_add = rs.getString("MEM_ADD");
+				String mem_pp = rs.getString("MEM_PP");
+				String mem_depm = rs.getString("MEM_DEPM");
+				
+				
+				System.out.println("ë³€ê²½í•˜ê³  ì‹¶ìœ¼ì‹  í•­ëª© ì˜†ì— ì íŒ ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•˜ì—¬ ì„ íƒí•˜ì‹œë©´ ë©ë‹ˆë‹¤.");
+				
+				System.out.println("           â”€â”€â”€â”€â”€â”€â”€â”€â”€" + mem_nm + "ë‹˜ì˜ íšŒì›ì •ë³´ â”€â”€â”€â”€â”€â”€â”€â”€â”€");
+				System.out.println("          â”‚" + "ì•„\t\t\tì´\t\t\të””: " + mem_id);
+				System.out.println("[pw]  â”‚" + "ë¹„\t\të°€\t\të²ˆ\t\tí˜¸ : " + mem_pw);
+				System.out.println("			â”‚" + "ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸(ì•ìë¦¬)(ìˆ˜ì •ë¶ˆê°€) : " + mem_rgon1);
+				System.out.println("		    â”‚" + "ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸(ë’·ìë¦¬)(ìˆ˜ì •ë¶ˆê°€) : " + mem_rgon2);
+				System.out.println("[enm]â”‚ " + "ì˜\t\të¬¸\t\tì„±\t\tëª… : " + mem_ename);
+				System.out.println("[tel]   â”‚ " + "ì „\t\tí™”\t\të²ˆ\t\tí˜¸ : " + mem_tel);
+				System.out.println("[add] â”‚ " + "ì£¼\t\t\t\t\t\tì†Œ : " + mem_add);
+				System.out.println("[pp]   â”‚ " + "ì—¬\t\tê¶Œ\t\të²ˆ\t\tí˜¸ : " + mem_pp);
+				System.out.println("           â”‚" + "ë³´\t\tìœ \t\tê¸ˆ\t\tì•¡ : " + mem_depm);
+				System.out.println("            â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
+			}
+			
+			System.out.print(user_name + " >> ");
+			String input = bf.readLine();
+			
+			
+
+			
+			if(input.equalsIgnoreCase("pw")) { // ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ì„ íƒ
+				
+				// ë‹¨ìˆœíˆ updateToë©”ì†Œë“œë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•œ ì„ì‹œ ê°ì²´ë¥¼ ë§Œë“¬
+				//new MemberDAO().updateTo("ë¹„ë°€ë²ˆí˜¸", "MEM_PW");
+				worker.updateTo("ë¹„ë°€ë²ˆí˜¸", "MEM_PW");
+				
+				
+			}else if(input.equalsIgnoreCase("enm")) { // ì˜ë¬¸ì„±ëª… ë³€ê²½ ì„ íƒ
+				
+				worker.updateTo("ì˜ë¬¸ì„±ëª…", "MEM_ENAME");
+				
+			}else if(input.equalsIgnoreCase("tel")) { // ì „í™”ë²ˆí˜¸ ë³€ê²½ ì„ íƒ
+				
+				worker.updateTo("ì „í™”ë²ˆí˜¸", "MEM_TEL");
+				
+			}else if(input.equalsIgnoreCase("add")) {// ì£¼ì†Œ ë³€ê²½ ì„ íƒ
+				
+				worker.updateTo("ì£¼ì†Œ", "MEM_ADD");
+				
+			}else if(input.equalsIgnoreCase("pp")) { // ì—¬ê¶Œë²ˆí˜¸ ë³€ê²½ ì„ íƒ
+				
+				worker.updateTo("ì—¬ê¶Œë²ˆí˜¸", "MEM_PP");
+				
+			}else {
+				
+				System.out.println("                           â”€â”€â”€ ");
+				System.out.println("                         â”‚        â”‚");
+				System.out.println("                         â”‚        â”‚");
+				System.out.println("                         â”‚        â”‚");
+				System.out.println("                         â”‚        â”‚");
+				System.out.println("â”Œâ”€â”€â”€   â”€â”€â”€            â”€â”€â”€ â”€â”€â”€â”");
+				System.out.println("â”‚          â”‚         â”‚       â”‚        â”‚           â”‚");
+				System.out.println("â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”");
+				System.out.println("â”‚ì˜¬ë°”ë¥´ì§€ ì•Šì€ ì…ë ¥í˜•ì‹ì…ë‹ˆë‹¤. (- -)     â”‚");
+				System.out.println("â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜");
+				View.menuView();
+				
+			}
+			
+			
+		}catch(Exception e) {
+			
+		}
+		
+		//ìµœì‹ ì»¤ë°‹
+	}// íšŒì›ì •ë³´ìˆ˜ì • ë
+	
+	
+	public void updateTo(String what_to_change, String column ) {
+		// ë“¤ì–´ê°ˆ ë§¤ê°œë³€ìˆ˜ : ë³€ê²½í•  í•­ëª©, ê·¸ í•­ëª©ì˜ ë°ì´í„°ë² ì´ìŠ¤ ì»¬ëŸ¼ëª…
+		
+		
+		String qry = "";
+		
+		try {
+			
+			System.out.println("ë³€ê²½í• " + what_to_change  + " ì…ë ¥!");
+			System.out.print(user_name + " >> ");
+			String tmp = bf.readLine();
+			
+			qry = "UPDATE MEMBER SET " +  column + " = " + "'" + tmp + "'" + " WHERE MEM_ID = "
+					+ "'" + user_id + "'";
+			
+			Statement stmt = conn.createStatement();
+			
+			stmt.executeQuery(qry);
+			System.out.println();
+			System.out.println("â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”");
+			System.out.println("â”‚"  + what_to_change + " ë³€ê²½ ì™„ë£Œ      ");
+			System.out.println("â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜");
+			View.menuView();
+			
+		}catch(SQLException sqle) {
+			System.out.println("SQL ERROR : " + sqle);
+		}catch(Exception e) {
+			System.out.println("Unknown Error : " + e);
+		}
+		
+		
 	}
+	
+	
+	
+	
 	
 }

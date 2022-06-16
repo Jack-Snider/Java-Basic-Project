@@ -1,9 +1,9 @@
 package MainPackage;
 
-// ½ÇÁúÀûÀÎ ÀÛ¾÷ÀÌ ÀÌ·ç¾îÁö´Â Å¬·¡½º (DB¿¬µ¿, CRUD µî...)
+// ì‹¤ì§ˆì ì¸ ì‘ì—…ì´ ì´ë£¨ì–´ì§€ëŠ” í´ë˜ìŠ¤ (DBì—°ë™, CRUD ë“±...)
 public class AirlineDAO extends DBConnection{
 	
-	// µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á
+	// ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²°
 	public void accessDB() {
 		DBConnection.getConnection();
 	}

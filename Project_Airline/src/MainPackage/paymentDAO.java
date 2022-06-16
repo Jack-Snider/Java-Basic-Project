@@ -4,31 +4,31 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 
-//½ÇÁúÀûÀÎ ÀÛ¾÷ÀÌ ÀÌ·ç¾îÁö´Â Å¬·¡½º (DB¿¬µ¿, CRUD µî...)
+//ì‹¤ì§ˆì ì¸ ì‘ì—…ì´ ì´ë£¨ì–´ì§€ëŠ” í´ë˜ìŠ¤ (DBì—°ë™, CRUD ë“±...)
 public class paymentDAO extends DBConnection {
 
 	
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	static Connection conn;
 	
-	// µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á
+	// ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²°
 	public void accessDB() {
 		DBConnection.getConnection();
 	}
 	
-	// °áÁ¦ ±â´É
+	// ê²°ì œ ê¸°ëŠ¥
 	public void pay() {
 		
 	}
 	
-	// °áÁ¦À¯¹« ¹İÈ¯
+	// ê²°ì œìœ ë¬´ ë°˜í™˜
 	public boolean payCheck() {
 		boolean isPayed = false;
 		
 		return isPayed;
 	}
 	
-	// °áÁ¦ÀÏÀÚ ¹İÈ¯
+	// ê²°ì œì¼ì ë°˜í™˜
 	public String payDate() {
 		
 		return "";

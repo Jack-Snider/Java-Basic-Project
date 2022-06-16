@@ -2,15 +2,15 @@ package MainPackage;
 
 public class MemberDTO {
 	
-	String mem_id; //È¸¿ø¾Æ¾Æµğ 
-	String mem_pw; //ºñ¹Ğ¹øÈ£
-	String mem_rgon1; //ÁÖ¹Î¹øÈ£ ¾ÕÀÚ¸®
-	String mem_rgon2; //ÁÖ¹Î¹øÈ£ µŞÀÚ¸®
-	String mem_nm; //¼º¸í
-	String mem_tel; //ÀüÈ­¹øÈ£
-	String mem_add; //ÁÖ¼Ò
-	String mem_pp; //¿©±Ç¹øÈ£
-	int mem_depm; //º¸À¯±İ¾×
+	String mem_id; //íšŒì›ì•„ì•„ë”” 
+	String mem_pw; //ë¹„ë°€ë²ˆí˜¸
+	String mem_rgon1; //ì£¼ë¯¼ë²ˆí˜¸ ì•ìë¦¬
+	String mem_rgon2; //ì£¼ë¯¼ë²ˆí˜¸ ë’·ìë¦¬
+	String mem_nm; //ì„±ëª…
+	String mem_tel; //ì „í™”ë²ˆí˜¸
+	String mem_add; //ì£¼ì†Œ
+	String mem_pp; //ì—¬ê¶Œë²ˆí˜¸
+	int mem_depm; //ë³´ìœ ê¸ˆì•¡
 	
 	
 	MemberDTO(){}
@@ -23,13 +23,13 @@ public class MemberDTO {
 		boolean stat = false;
 		for(int i = 0; i < tmp.length(); i++) {
 			if(tmp.charAt(i) != '-') {
-				// ¾ÕÀÚ¸® ÀúÀå
+				// ì•ìë¦¬ ì €ì¥
 				tmp += tmp.charAt(i);
 				stat = true;
 			}
 			
 			if(stat) {
-				// µŞÀÚ¸® ÀúÀå
+				// ë’·ìë¦¬ ì €ì¥
 				tmp2 += tmp.charAt(i);
 			}
 			

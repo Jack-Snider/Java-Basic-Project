@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 // 사용자에게 보여질 화면들을 정의 해놓은 클래스
 public class MenuBar {
 
+	static boolean atFlight = false; // 사용자가 현재 flight 화면을 보고 있는지 판단
 	static boolean isLogined = false; // 회원의 로그인 상태 (로그인 : true, 로그아웃 : false)
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in)); // Scanner의 기능
 	
@@ -25,11 +26,11 @@ public class MenuBar {
 	
 	
 	public static void startView() {
+		
 		System.out.println();
 		System.out.println(" Lobby Command words");
 		System.out.println("┌──────────────┐");
 		System.out.println("│login(로그인) \t\t\t      │");
-		System.out.println("│logout(로그아웃)\t\t\t      │");
 		System.out.println("│signin(회원가입)\t\t\t      │");
 		System.out.println("│find(아이디/비밀번호 찾기)      │");
 		System.out.println("└──────────────┘");
@@ -207,6 +208,8 @@ public class MenuBar {
 				}
 			} // 회원정보 수정 끝
 			
+
+//-------------------------------------------------------------------------------			
 			
 			// 아아디/비밀번호 찾기
 			else if(input.equalsIgnoreCase("find")) { // 아이디/비밀번호 찾기 시작
@@ -223,20 +226,26 @@ public class MenuBar {
 				
 			}// 아이디/비밀번호 찾기 끝
 			
+//-------------------------------------------------------------------------------
 			
 			// 항공조회, 예약
-			if(input.equalsIgnoreCase("flight")) {
+			else if(input.equalsIgnoreCase("flight")) { //항공조회/예약 시작
 	
+				atFlight = true;
+				
 				MemberDAO.searchFlights();
 				
 				System.out.println("└────────────────────────────────────────────────────┘");
-				System.out.println("원하는 항공편의 번호를 적어주세요.");
+				System.out.println("'add' 누른후 엔터 -> 바구니에 담을 항공편의 인덱스 입력");
 				System.out.print(MemberDAO.user_name + " >> ");
 				menuView();
 				
-			}
+			}// 항공조회/예약 끝
+//-------------------------------------------------------------------------------
 			
-			else if(input.equalsIgnoreCase("<")) {
+			
+			// 뒤로가기
+			else if(input.equalsIgnoreCase("<")) { // 뒤로가기 시작
 				if(isLogined) {
 					Views.atLogin();
 					System.out.print(MemberDAO.user_name + " >> ");
@@ -248,15 +257,92 @@ public class MenuBar {
 					menuView();
 				}
 				
+			}// 뒤로가기 끝
+			
+//-------------------------------------------------------------------------------			
+			
+			
+			// 항공편 리스트에 담기
+			// 입력한 데이터가 정수형 숫자이면( 문자열을 정수형으로 바꾸고 1로 나누었을 때 나머지가 0이면 정수)
+			else if(input.equalsIgnoreCase("add")) { // 항공편 리스트에 담기 시작
+				
+				atFlight = true;
+				
+				FlightDAO.add();
+				
+				System.out.print(MemberDAO.user_name + " >> ");
+				menuView();
+				
+				
+			}// 항고편 리스트에 담기 끝
+			
+			
+//-------------------------------------------------------------------------------
+			
+			else if(input.equalsIgnoreCase("showbook")) {
+				
+				FlightDAO.showAll();
+				System.out.print(MemberDAO.user_name + " >> ");
+				menuView();
+				
 			}
 			
 			
+			else if(input.equalsIgnoreCase("done")) {
+				// 예약번호 입력을 다 치고 난 후 done을 눌러 종료
+				
+				Views.atLogin();
+				System.out.println("선택하신 항목들이 바구니에 모두 담겼습니다.");
+				System.out.println();
+				System.out.print(MemberDAO.user_name + " >> ");
+				menuView();
+				
+			}
+
+			
+			
+			
+			
+//-------------------------------------------------------------------------------			
+			
+			// 시작화면으로 돌아가기
+			else if(input.equalsIgnoreCase("home")) {
+				if(isLogined) {
+					Views.atLogin();
+					System.out.print(MemberDAO.user_name + " >> ");
+					menuView();					
+				}else {
+					System.out.println("로그인 먼저~");
+					Views.atLogout();
+					menuView();
+				}
+			}
+			
+			else if(input.equalsIgnoreCase("pay")) {
+				
+				PaymentDAO.pay();
+				Views.atLogin();
+				System.out.print(MemberDAO.user_name + " >> ");
+				menuView();		
+				
+			}
 			
 			else {
 				System.out.println("올바른 명령어가 아닙니다. 다시 입력해주세요!");
 				startView();
 				menuView();
 			}
+
+//-------------------------------------------------------------------------------			
+			
+			
+			
+			
+//-------------------------------------------------------------------------------
+			
+		
+			
+			
 			
 			
 			

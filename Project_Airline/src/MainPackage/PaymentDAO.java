@@ -4,6 +4,21 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 
+/*
+ * PAYMENT 테이블
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+
+
+
+
+
 //실질적인 작업이 이루어지는 클래스 (DB연동, CRUD 등...)
 public class PaymentDAO extends DBConnection {
 
@@ -35,6 +50,18 @@ public class PaymentDAO extends DBConnection {
 	// 결제 기능
 	public void pay() {
 
+		/*
+		 * MemberDAO클래스에서 현재 접속하고 있는 회원의 ID를 가져옴
+		 * 
+		 * 
+		 */
+		
+		String id = MemberDAO.getMem_id(); // 현재 접속하고 있는 유저의 ID를 반환
+		
+		
+		
+		
+		
 	}
 
 	// 결제유무 반환

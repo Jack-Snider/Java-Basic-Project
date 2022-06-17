@@ -221,7 +221,11 @@ public class MenuBar {
 			}// 아이디/비밀번호 찾기 끝
 			
 			
-			
+			else {
+				System.out.println("올바른 명령어가 아닙니다. 다시 입력해주세요!");
+				startView();
+				menuView();
+			}
 			
 			
 			

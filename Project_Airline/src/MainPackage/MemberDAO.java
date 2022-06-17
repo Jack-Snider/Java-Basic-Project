@@ -43,12 +43,9 @@ public class MemberDAO extends DBConnection{
 		conn = DBConnection.getConnection();
 	}
 	
-	// 회원탈퇴 - Delete Account
-	public void delAccount() {
-		
-		// logined check first
-		
-		
+	// 현재 접속하고 있는 회원의 아이디를 반환
+	public static String getMem_id() {
+		return user_id;
 	}
 	
 	// 로그인

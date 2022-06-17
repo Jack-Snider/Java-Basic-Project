@@ -4,10 +4,39 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 // 사용자에게 보여질 화면들을 정의 해놓은 클래스
-public class View {
+public class MenuBar {
 
 	static boolean isLogined = false; // 회원의 로그인 상태 (로그인 : true, 로그아웃 : false)
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in)); // Scanner의 기능
+	
+	public static String Input() {
+		
+		String input = "";
+		
+		try {
+			input = bf.readLine();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return input;
+		
+	}
+	
+	
+	public static void startView() {
+		System.out.println();
+		System.out.println(" Lobby Command words");
+		System.out.println("┌──────────────┐");
+		System.out.println("│login(로그인) \t\t\t      │");
+		System.out.println("│logout(로그아웃)\t\t\t      │");
+		System.out.println("│signin(회원가입)\t\t\t      │");
+		System.out.println("│find(아이디/비밀번호 찾기)      │");
+		System.out.println("└──────────────┘");
+		System.out.println();
+		System.out.print(MemberDAO.user_name + " >> ");
+	}
+	
 	
 	// 사용자가 처음 로그인 했을때와 앞으로 보여질 화면
 	public static void menuView() {
@@ -20,21 +49,10 @@ public class View {
 		 * 
 		 */
 		
-		System.out.println();
-		System.out.println(" Command words");
-		System.out.println("┌──────────────┐");
-		System.out.println("│login(로그인) \t\t\t      │");
-		System.out.println("│logout(로그아웃)\t\t\t      │");
-		System.out.println("│update(회원수정)\t\t      │");	
-		System.out.println("│delete(회원탈퇴)\t\t\t      │");
-		System.out.println("│signin(회원가입)\t\t\t      │");
-		System.out.println("│srhair(항공조회)\t\t\t      │");
-		System.out.println("│bkair(항공예약)\t\t\t      │");
-		System.out.println("└──────────────┘");
-		System.out.println();
-		System.out.print(MemberDAO.user_name + " >> ");
+	
 		
 		try {
+			
 			
 			String input = bf.readLine();
 
@@ -46,26 +64,34 @@ public class View {
 				if(!isLogined) {
 					MemberDAO.accessDB(); // 데이터베이스 연동 (MemberDAO 클래스의 accessDB() 메소드 호출
 					
-					System.out.print("ID : ");
+					System.out.print("┌─ ∑ ID : ");
 					String id = bf.readLine();
-					System.out.print("PW : ");
+					System.out.print("└─ ∑ PW : ");
 					String pw = bf.readLine();
 					
 					isLogined = MemberDAO.logIn(id, pw); // 로그인 하는 함수, MemberDAO 클래스의 login()메소드를 호출
-					System.out.println("isLogined : " + isLogined);
+					//System.out.println("isLogined : " + isLogined);
 					
 					
 					if(isLogined) {
-						System.out.println("-----------------------------------------");
-						System.out.println(MemberDAO.user_name + "님 방문을 환영합니다.");
-						System.out.println("-----------------------------------------");
+						
+						// 로그인 되었을 때 보여질 화면
+						Views.atLogin();
+						System.out.println("┌─────────────────────────┐");
+						System.out.println("│ " + MemberDAO.user_name + "님 방문을 환영합니다. ");
+						System.out.println("└─────────────────────────┘");
+						System.out.print(MemberDAO.user_name + " >> ");
 						menuView();
+
+						
 					}else {
-						System.out.println("로그인 실패"); 
+						System.out.println("로그인 실패");
+						startView();
 						menuView();
 					}
 				}else {
 					System.out.println("WARNING : 이미 로그인 되있습니다.");
+					startView();
 					menuView();
 				}
 				
@@ -80,9 +106,12 @@ public class View {
 				if(isLogined) {
 					System.out.println();
 					System.out.println("WARNING : 회원가입을 하시려면 먼저 로그아웃을 하셔야 합니다.");
+					Views.atLogin();
+					System.out.print(MemberDAO.user_name + " >> ");
 					menuView();
 				}else {
 					MemberDAO.signIn();
+					Views.atLogin();
 					menuView();
 				}
 				
@@ -100,11 +129,13 @@ public class View {
 					System.out.println();
 					System.out.println("SUCCESS : 정상적으로 로그아웃 하셨습니다.");
 					isLogined = false;
+					Views.atLogout();
 					menuView();
 					
 				}else { // 로그인이 되어있지 않은 상태
 					System.out.println();
 					System.out.println("WARNING : 현재 로그인 되어있지 않습니다. 다시 확인해주세요.");
+					startView();
 					menuView();
 				}
 				
@@ -119,30 +150,38 @@ public class View {
 					System.out.print("정말로 회원탈퇴를 하실겁니까?(YES/NO) >> ");
 					tmp = bf.readLine();
 					if(tmp.equalsIgnoreCase("YES")) {
-						System.out.println("다음과 같은 문구를 작성해주세요..");
-						System.out.println("'" + MemberDAO.user_id + " is free'");
+						System.out.println("┌──↓↓다음과 같은 문구를 작성해주세요 ↓↓──┐");
+						System.out.println("│→ '" + MemberDAO.user_id + " is free'");
 						System.out.print(MemberDAO.user_id + " >> ");
 						tmp = bf.readLine();
 						if(tmp.equals(MemberDAO.user_id + " is free")) {
 							MemberDAO.deleteAccount();
 							isLogined = false;
-							System.out.println("정상적으로 탈퇴 하셨습니다.. 다음에 또 오시길..");
+							System.out.println("ㆁω ㆁ → 정상적으로 탈퇴 하셨습니다.. 다음에 또 오시길..");
+							startView();
 							menuView();
 							
-						}else {
+						}else if(tmp.equalsIgnoreCase("NO")) {
+							Views.atLogin();
+							menuView();
+						}
+						else {
 							System.out.println("WARNING : 잘못 입력하셨습니다.");
+							Views.atLogin();
 							menuView();
 						}
 						//System.out.println(user_id );
 					}else {
+						Views.atLogin();
 						menuView();
 						System.out.println("조금 더 생각하고 와주세요.. ㅜㅜ");
 					}
 					
 					
-					menuView();
+					
 				}else {
 					System.out.println("WARNING : 먼저 로그인을 해주세요.");
+					startView();
 					menuView();
 				}
 			}// 회원탈퇴 끝
@@ -154,19 +193,43 @@ public class View {
 			else if(input.equalsIgnoreCase("update")) { // 회원정보 수정 시작
 				if(isLogined) {
 					
-					MemberDAO.update();				
+					MemberDAO.update();
+					Views.atLogin();
+					menuView();
 					
 				}else {
 					System.out.println("WARNING : 로그인을 먼저 하셔야 합니다.");
+					startView();
 					menuView();
 				}
 			} // 회원정보 수정 끝
 			
 			
+			// 아아디/비밀번호 찾기
+			else if(input.equalsIgnoreCase("find")) { // 아이디/비밀번호 찾기 시작
+				if(!isLogined) {
+					MemberDAO.accessDB();
+					MemberDAO.find();
+					startView();
+					menuView();
+				}else {
+					System.out.println("현재 로그인 되있으십니다.");
+					Views.atLogin();
+					menuView();
+				}
+				
+			}// 아이디/비밀번호 찾기 끝
 			
+			
+			
+			
+			
+<<<<<<< HEAD:Project_Airline/src/MainPackage/View.java
 			else if(input.equals("1004")) {
 					new AdminView().menuView();
 			}
+=======
+>>>>>>> a7c4c903f79a548dc4866d6733153786df26703b:Project_Airline/src/MainPackage/MenuBar.java
 			
 			
 		// try	

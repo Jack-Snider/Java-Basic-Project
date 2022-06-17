@@ -31,6 +31,8 @@ public class MemberDAO extends DBConnection{
 	
 	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 	static Connection conn;
+	static Statement stmt;
+	static ResultSet rs;
 	static boolean isLogined = false; // <- login status
 	static MemberDAO worker = new MemberDAO();
 	MemberDTO memDTO;
@@ -61,9 +63,9 @@ public class MemberDAO extends DBConnection{
 		
 		try {
 			
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			//stmt.executeQuery(query);
-			ResultSet rs = stmt.executeQuery(query);
+			rs = stmt.executeQuery(query);
 			
 			if(rs.next()) {
 				// 사용자가 입력한 아이디와 비번이 데이터베이스에서 일치하는게 존재
@@ -118,16 +120,16 @@ public class MemberDAO extends DBConnection{
 		 */
 		try {
 			
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			
 			
-			System.out.println("메뉴로 돌아가기 : m , 뒤로가기 : < ");
+			//System.out.println("메뉴로 돌아가기 : m , 뒤로가기 : < ");
 			while(true) { // while starts
 				System.out.print("사용할 아이디 입력 : "); // 아이디 입력
 				String mem_id = bf.readLine();
 				
 				// 테이블은 아직 만들어지지 않았으므로 추후 만들예정, 지금은 다른 DB에서 테스트중.
-				ResultSet rs = stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + mem_id + "\'");
+				rs = stmt.executeQuery("SELECT * FROM MEMBER WHERE MEM_ID = " + "\'" + mem_id + "\'");
 				
 				//입력된 아이디로 조회가 된다면(rs에 값이 들어가있다면)
 				if(rs.next()) {
@@ -158,8 +160,23 @@ public class MemberDAO extends DBConnection{
 					String mem_regon2 = bf.readLine();
 					System.out.print("이름 입력 : "); // 이름입력 (MEM_NM)
 					String mem_nm = bf.readLine();
+					
+					
 					System.out.print("전화번호 입력 : "); // 전화번호 입력 (MEM_TEL)
 					String mem_tel = bf.readLine();
+					
+					String telCheckQuery = "SELECT * FROM MEMBER WHERE MEM_TEL = '" + mem_tel + "'";
+					
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery(telCheckQuery);
+					if(rs.next()) {
+						System.out.println("WARNING : 해당 전화번호로 이미 가입된 아이디가 있습니다.");
+						continue;
+					}
+					
+					
+					
+					
 					System.out.print("주소 : "); // 주소입력 (MEM_ADD)
 					String mem_add =  bf.readLine();
 					System.out.print("여권번호 : "); // MEM_PP
@@ -191,9 +208,14 @@ public class MemberDAO extends DBConnection{
 							"'" + mem_depm + "' ," + 
 							"'" + mem_ename + "')";
 							
-					System.out.println(sign_query);
+					
+					System.out.println("┌∑── " + mem_nm + "님 회원가입을 축하드립니다 ──∃┐");
+					System.out.println("└────────────────────┘");
+					
+					
+					
 					stmt.executeQuery(sign_query);
-					View.menuView();
+					break;
 					 
 					
 				}
@@ -224,7 +246,7 @@ public class MemberDAO extends DBConnection{
 		
 		
 		try {
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			stmt.executeQuery(query);
 			user_name = "";	
 		}catch(Exception e) {
@@ -253,8 +275,8 @@ public class MemberDAO extends DBConnection{
 			
 			String query = "SELECT * FROM MEMBER WHERE MEM_ID = " + "'" + user_id + "'";
 			
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(query);
 			
 			while(rs.next()) {
 				
@@ -272,17 +294,18 @@ public class MemberDAO extends DBConnection{
 				
 				System.out.println("변경하고 싶으신 항목 옆에 적힌 명령어를 입력하여 선택하시면 됩니다.");
 				
-				System.out.println("           ─────────" + mem_nm + "님의 회원정보 ─────────");
-				System.out.println("          │" + "아\t\t\t이\t\t\t디: " + mem_id);
-				System.out.println("[pw]  │" + "비\t\t밀\t\t번\t\t호 : " + mem_pw);
-				System.out.println("			│" + "주민등록번호(앞자리)(수정불가) : " + mem_rgon1);
-				System.out.println("		    │" + "주민등록번호(뒷자리)(수정불가) : " + mem_rgon2);
-				System.out.println("[enm]│ " + "영\t\t문\t\t성\t\t명 : " + mem_ename);
-				System.out.println("[tel]   │ " + "전\t\t화\t\t번\t\t호 : " + mem_tel);
-				System.out.println("[add] │ " + "주\t\t\t\t\t\t소 : " + mem_add);
-				System.out.println("[pp]   │ " + "여\t\t권\t\t번\t\t호 : " + mem_pp);
-				System.out.println("           │" + "보\t\t유\t\t금\t\t액 : " + mem_depm);
-				System.out.println("            ──────────────────────────────");
+				System.out.println("           ♡┌─────────" + mem_nm + "님의 회원정보 ─────────┐♡");
+				System.out.println("              │─────────" + "↑ㅎω σ"   + "                    ────────  │");
+				System.out.println("              │─────────" + "아이디               :\t"  + mem_id);
+				System.out.println("              │─────  [pw]─" + "비밀번호             :\t"  + mem_pw);
+				System.out.println("              │─────────" + "주민번호(앞자리) :\t"  + mem_rgon1);
+				System.out.println("              │─────────" + "주민번호(뒷자리) :\t"  + mem_rgon2);
+				System.out.println("              │─────[enm]─" + "영문성명             :\t"  + mem_ename);
+				System.out.println("              │─────  [tel]─" + "전화번호             :\t"  + mem_tel);
+				System.out.println("              │─────[add]─" + "주소                    :\t"  + mem_add);
+				System.out.println("              │─────   [pp]─" + "여권번호             :\t"  + mem_pp);
+				System.out.println("              │─────────" + "보유금액             :\t"  + mem_depm);
+				System.out.println("              └─────────────────────────────");
 			}
 			
 			System.out.print(user_name + " >> ");
@@ -315,6 +338,7 @@ public class MemberDAO extends DBConnection{
 				worker.updateTo("여권번호", "MEM_PP");
 				
 			}else {
+		
 				
 				System.out.println("                           ─── ");
 				System.out.println("                         │        │");
@@ -326,7 +350,10 @@ public class MemberDAO extends DBConnection{
 				System.out.println("┌─────────────────┐");
 				System.out.println("│올바르지 않은 입력형식입니다. (- -)     │");
 				System.out.println("└─────────────────┘");
-				View.menuView();
+				MenuBar.startView();
+				MenuBar.menuView();
+				System.out.print(user_name + " >> ");
+				
 				
 			}
 			
@@ -354,14 +381,17 @@ public class MemberDAO extends DBConnection{
 			qry = "UPDATE MEMBER SET " +  column + " = " + "'" + tmp + "'" + " WHERE MEM_ID = "
 					+ "'" + user_id + "'";
 			
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
 			
 			stmt.executeQuery(qry);
 			System.out.println();
 			System.out.println("┌─────────────────┐");
 			System.out.println("│"  + what_to_change + " 변경 완료      ");
 			System.out.println("└─────────────────┘");
-			View.menuView();
+			
+			Views.atLogin();
+			System.out.print(user_name + " >> ");
+			MenuBar.menuView();
 			
 		}catch(SQLException sqle) {
 			System.out.println("SQL ERROR : " + sqle);
@@ -374,6 +404,120 @@ public class MemberDAO extends DBConnection{
 	
 	
 	
+	// 아이디/비밀번호 찾기
+	public static void find() {
+		// 이름이랑 전화번호를 입력받아 아이디/비밀번호 찾기
+		String query = "";
+		
+		try {
+			
+			System.out.println("[id] ->  아이디 찾기");
+			System.out.println("[pw] -> 비밀번호 찾기");
+			System.out.print(user_name + " >> ");
+			String input = bf.readLine();
+			
+			if(input.equalsIgnoreCase("id")) {
+//				 아이디 찾기 할떄는 이름이랑 전화번호를 받고
+				System.out.print("┌─┠ 이름 입력 : ");
+				String name = bf.readLine();
+				System.out.print("└─┠ 전화번호 : ");
+				String tel = bf.readLine();
+				
+				query = "SELECT MEM_ID FROM MEMBER WHERE MEM_NM = " + "'" + name + "' AND "
+						+ " MEM_TEL = '" + tel + "'";
+		
+				
+				String qry = "SELECT MEM_ID FROM MEMBER WHERE MEM_TEL = '"  + tel + "'";
+				
+				//01052364512
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(qry);
+				
+				while(rs.next()) {
+					System.out.println(name + "의 아이디는 " + rs.getString("MEM_ID") + "입니다. ");
+				}
+				
+				
+				while(rs.next()) {
+					System.out.println(rs.getString("MEM_ID"));
+				}
+				
+				
+				MenuBar.menuView();
+				
+			}else if(input.equalsIgnoreCase("pw")) {
+				// 비밀번호를 찾을때는 아이디, 이름, 전화번호 받기
+				try {
+					System.out.print("┌─┟ 아이디 입력 : ");
+					String id = bf.readLine();
+					System.out.print("│─┠ 이름 입력 : ");
+					String name = bf.readLine();
+					System.out.print("└─┠ 전화번호 입력 : ");
+					String tel = bf.readLine();
+					
+					String qry = "SELECT MEM_PW FROM MEMBER WHERE MEM_ID = '" + id + "' AND " + 
+										"MEM_NM = '" + name + "' AND MEM_TEL = '" + tel + "'";
+					
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery(qry);
+					if(rs.next()) {
+						try {
+							System.out.print("└─ ∬ 새로운 비밀번호 입력 : ");
+							String pw = bf.readLine();
+							
+							qry = "UPDATE MEMBER SET MEM_PW = '" + pw + "' WHERE MEM_ID = '" + id + "'";
+							stmt.executeQuery(qry);
+							System.out.println("└─ UPDATE MESSAGE : 비밀번호가 정상적으로 변경되었습니다.");
+							
+							MenuBar.startView();
+							MenuBar.menuView();
+							
+						}catch(Exception e) {
+							System.out.println("UNKNOWN ERROR : " + e);
+						}
+					}else {
+						System.out.println("┌─ 등록된 회원이 아닙니다. ─┐");
+						Views.atLogin();
+						MenuBar.menuView();
+					}
+							
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				
+			}else {
+				System.out.println("WARNING : 입력이 옳바르지 않습니다.");
+				MenuBar.menuView();
+			}
+		}catch(SQLException sqle) {
+			System.out.println("SQL ERROR : " + sqle);
+		}catch(Exception e) {
+			System.out.println("Unknown Error : " + e);
+		}
+		
+	}
+	
+	
+	
+	public void allClear() {
+		try {
+			if(rs != null) {
+				rs.close();
+			}
+			
+			if(stmt != null) {
+				stmt.close();
+			}
+			
+			if(conn != null) {
+				conn.close();
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

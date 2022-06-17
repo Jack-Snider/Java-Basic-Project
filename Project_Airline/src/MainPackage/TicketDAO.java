@@ -13,6 +13,12 @@ public class TicketDAO extends DBConnection{
 		DBConnection.getConnection();
 	}
 	
+	
+	// 항공편 조회
+	public void showList() {
+		
+	}
+	
 	// 구매한 모든 티켓 보여줌
 	public void showTicketList() {
 		/*

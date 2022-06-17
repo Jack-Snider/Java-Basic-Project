@@ -43,12 +43,9 @@ public class MemberDAO extends DBConnection{
 		conn = DBConnection.getConnection();
 	}
 	
-	// 회원탈퇴 - Delete Account
-	public void delAccount() {
-		
-		// logined check first
-		
-		
+	// 현재 접속하고 있는 회원의 아이디를 반환
+	public static String getMem_id() {
+		return user_id;
 	}
 	
 	// 로그인 작성완료
@@ -292,7 +289,7 @@ public class MemberDAO extends DBConnection{
 				String mem_depm = rs.getString("MEM_DEPM");
 				
 				
-				System.out.println("변경하고 싶으신 항목 옆에 적힌 명령어를 입력하여 선택하시면 됩니다.");
+	System.out.println("변경하고 싶으신 항목 옆에 적힌 명령어를 입력하여 선택하시면 됩니다.");
 				
 				System.out.println("           ♡┌─────────" + mem_nm + "님의 회원정보 ─────────┐♡");
 				System.out.println("              │─────────" + "↑ㅎω σ"   + "                    ────────  │");
@@ -306,6 +303,8 @@ public class MemberDAO extends DBConnection{
 				System.out.println("              │─────   [pp]─" + "여권번호             :\t"  + mem_pp);
 				System.out.println("              │─────────" + "보유금액             :\t"  + mem_depm);
 				System.out.println("              └─────────────────────────────");
+				
+				
 			}
 			
 			System.out.print(user_name + " >> ");
@@ -337,7 +336,12 @@ public class MemberDAO extends DBConnection{
 				
 				worker.updateTo("여권번호", "MEM_PP");
 				
-			}else {
+			}else if(input.equals("<")) {
+				Views.atLogin();
+				System.out.print(user_name + " >> ");
+				MenuBar.menuView();
+			}
+			else {
 		
 				
 				System.out.println("                           ─── ");
@@ -498,6 +502,14 @@ public class MemberDAO extends DBConnection{
 		
 	}
 	
+	
+	
+	public static void searchFlights() {
+		
+		FlightDAO fdao = new FlightDAO();
+		fdao.showList();
+		
+	}
 	
 	
 	public void allClear() {

@@ -15,6 +15,14 @@ public class Main {
 		MenuBar.startView();
 		MenuBar.menuView();
 		
+		
+//		CartDAO c = new CartDAO();
+//		
+//		String now = c.getTime();
+//		System.out.println(now);
+		
+		
+		
 		//AdminView.showAllMember();
 		
 		

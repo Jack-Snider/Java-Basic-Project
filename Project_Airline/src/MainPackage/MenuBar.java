@@ -327,6 +327,11 @@ public class MenuBar {
 				
 			}
 			
+			else if(input.equals("1004")) {
+				new AdminView().menuView();
+			}
+			
+			
 			else {
 				System.out.println("올바른 명령어가 아닙니다. 다시 입력해주세요!");
 				startView();
@@ -343,16 +348,7 @@ public class MenuBar {
 		
 			
 			
-			
-			
-<<<<<<< HEAD:Project_Airline/src/MainPackage/View.java
-			else if(input.equals("1004")) {
-					new AdminView().menuView();
-			}
-=======
->>>>>>> a7c4c903f79a548dc4866d6733153786df26703b:Project_Airline/src/MainPackage/MenuBar.java
-			
-			
+
 		// try	
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -1,10 +1,7 @@
 package MainPackage;
 
 import java.io.BufferedReader;
-<<<<<<< HEAD
 import java.io.IOException;
-=======
->>>>>>> a7c4c903f79a548dc4866d6733153786df26703b
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,9 +12,8 @@ import java.sql.Statement;
 // 관리자 계정으로 들어왔을 때 관리자가 볼 화면 + 관리자의 기능 
 public class AdminView extends DBConnection {
 
-<<<<<<< HEAD
-	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in)); // Scanner의 기능
-
+	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	
 	public static void menuView() throws IOException, SQLException, ClassNotFoundException { // 관리자로 로그인 했을때 처음 보는 화면
 
 		System.out.println("관리자모드");
@@ -39,15 +35,16 @@ public class AdminView extends DBConnection {
 			showAirline();
 
 		} else if (input.equalsIgnoreCase("3")) {// 공항정보관리
-
+			
 		} else if (input.equalsIgnoreCase("4")) {// 항공권관리
 
 		} else if (input.equalsIgnoreCase("5")) {// 티켓관리
 
-=======
-	static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+		}
+	}	
 	
-	public static void menuView() { // 관리자로 로그인 했을때 처음 보는 화면
+	
+	public static void MoogonTV() { // 관리자로 로그인 했을때 처음 보는 화면
 		
 		System.out.println();
 		System.out.println();
@@ -105,7 +102,7 @@ public class AdminView extends DBConnection {
 			
 		}catch(Exception e) {
 			
->>>>>>> a7c4c903f79a548dc4866d6733153786df26703b
+
 		}
 
 	}

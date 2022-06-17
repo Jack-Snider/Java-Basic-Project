@@ -22,7 +22,8 @@ public class FlightDAO {
 	// 항공조회
 	public void showList() {
 
-		 String query = "SELECT FLIGHT_NO, AIR_CODE,"
+		 String query = "SELECT RANK() OVER(ORDER BY FLIGHT_NO) \"NO.\" "
+		 		+ ", FLIGHT_NO, AIR_CODE,"
 		 		+ "APT_NM, FLIGHT_DEPA, FLIGHT_DEPT,"
 		 		+ "FLIGHT_DEP FROM AIRPORT A, FLIGHT F "
 		 		+ "WHERE A.APT_AVL = F.APT_AVL";
@@ -32,8 +33,11 @@ public class FlightDAO {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(query);
 			
+			
+			System.out.println("      ┌────항공편───────항공사 코드────도착지───────출발정보──────출발 공항────┐");
 			while(rs.next()) {
 				
+				int i = rs.getInt("NO.");
 				String flight_no = rs.getString("FLIGHT_NO");
 				String air_code = rs.getString("AIR_CODE");
 				String apt_nm = rs.getString("APT_NM");
@@ -41,9 +45,10 @@ public class FlightDAO {
 				String flight_dept = rs.getString("FLIGHT_DEPT");
 				String flight_dep = rs.getString("FLIGHT_DEP");
 				
+				System.out.printf("%2d \t %20s \t %8s \t %20s \t %20s \t %13s",i,flight_no,air_code,apt_nm, flight_depa + " " + flight_dept, "인천공항 \n");
+				//System.out.println(i + "    │" + flight_no + " \t \t " + air_code + " \t \t \t" + apt_nm + " \t \t " + flight_depa + " " + flight_dept + " \t \t " + "인천공항" );
 				
-				System.out.println("┌────항공편───────항공사 코드────도착지──────────출발일────────출발 공항────┐");
-				System.out.println("│" + flight_no + " \t \t " + air_code + " \t \t \t" + apt_nm + " \t \t " + flight_depa + " " + flight_dept + " \t \t " + "인천공항" );
+				i++;
 				
 //				System.out.println("항공편 : " + air_code);
 //				System.out.println("항공사 코드 : " + apt_nm);

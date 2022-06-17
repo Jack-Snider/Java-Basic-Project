@@ -159,15 +159,18 @@ public class MenuBar {
 							isLogined = false;
 							System.out.println("ㆁω ㆁ → 정상적으로 탈퇴 하셨습니다.. 다음에 또 오시길..");
 							startView();
+							System.out.print(MemberDAO.user_id + " >> ");
 							menuView();
 							
 						}else if(tmp.equalsIgnoreCase("NO")) {
 							Views.atLogin();
+							System.out.print(MemberDAO.user_id + " >> ");
 							menuView();
 						}
 						else {
 							System.out.println("WARNING : 잘못 입력하셨습니다.");
 							Views.atLogin();
+							System.out.print(MemberDAO.user_id + " >> ");
 							menuView();
 						}
 						//System.out.println(user_id );
@@ -221,15 +224,32 @@ public class MenuBar {
 			}// 아이디/비밀번호 찾기 끝
 			
 			
-			else if(input.equalsIgnoreCase("srhair")) {
+			// 항공조회, 예약
+			if(input.equalsIgnoreCase("flight")) {
 	
 				MemberDAO.searchFlights();
 				
-				Views.atLogin();
+				System.out.println("└────────────────────────────────────────────────────┘");
+				System.out.println("원하는 항공편의 번호를 적어주세요.");
 				System.out.print(MemberDAO.user_name + " >> ");
 				menuView();
 				
 			}
+			
+			else if(input.equalsIgnoreCase("<")) {
+				if(isLogined) {
+					Views.atLogin();
+					System.out.print(MemberDAO.user_name + " >> ");
+					menuView();					
+				}else {
+					System.out.println("로그인이나 먼저 해");
+					Views.atLogout();
+					
+					menuView();
+				}
+				
+			}
+			
 			
 			
 			else {

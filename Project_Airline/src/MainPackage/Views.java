@@ -9,8 +9,7 @@ public class Views {
 		System.out.println("│logout(로그아웃)\t\t\t      │");
 		System.out.println("│update(회원수정/정보조회)      │");	
 		System.out.println("│delete(회원탈퇴)\t\t\t      │");
-		System.out.println("│srhair(항공조회)\t\t\t      │");
-		System.out.println("│bkair(항공예약)\t\t\t      │");
+		System.out.println("│flight(항공조회/예약)\t\t\t      │");
 		System.out.println("└──────────────┘");
 		System.out.println();
 		

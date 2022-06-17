@@ -164,7 +164,7 @@ public class View {
 			
 			
 			
-			else if(input.equals("vly vly lovely moogon")) {
+			else if(input.equals("1004")) {
 					new AdminView().menuView();
 			}
 			

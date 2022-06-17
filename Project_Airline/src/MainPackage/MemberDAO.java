@@ -49,7 +49,7 @@ public class MemberDAO extends DBConnection{
 		
 	}
 	
-	// 로그인
+	// 로그인 작성완료
 	public static boolean logIn(String id, String pw) {
 		// This method returns true for login success
 		

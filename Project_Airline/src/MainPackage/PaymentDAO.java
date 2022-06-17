@@ -7,7 +7,11 @@ import java.sql.Connection;
 /*
  * PAYMENT 테이블
  * 
- * 
+ * PAY_NUM
+ * PAY_AMT
+ * PAY_DATE
+ * PAY_EXIST
+ * CART_NO
  * 
  * 
  * 

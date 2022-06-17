@@ -221,6 +221,17 @@ public class MenuBar {
 			}// 아이디/비밀번호 찾기 끝
 			
 			
+			else if(input.equalsIgnoreCase("srhair")) {
+	
+				MemberDAO.searchFlights();
+				
+				Views.atLogin();
+				System.out.print(MemberDAO.user_name + " >> ");
+				menuView();
+				
+			}
+			
+			
 			else {
 				System.out.println("올바른 명령어가 아닙니다. 다시 입력해주세요!");
 				startView();

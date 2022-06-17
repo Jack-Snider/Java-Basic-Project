@@ -497,6 +497,14 @@ public class MemberDAO extends DBConnection{
 	
 	
 	
+	public static void searchFlights() {
+		
+		FlightDAO fdao = new FlightDAO();
+		fdao.showList();
+		
+	}
+	
+	
 	public void allClear() {
 		try {
 			if(rs != null) {

@@ -418,9 +418,9 @@ public class MemberDAO extends DBConnection{
 			
 			if(input.equalsIgnoreCase("id")) {
 //				 아이디 찾기 할떄는 이름이랑 전화번호를 받고
-				System.out.print("이름 입력 : ");
+				System.out.print("┌─┠ 이름 입력 : ");
 				String name = bf.readLine();
-				System.out.print("전화번호 : ");
+				System.out.print("└─┠ 전화번호 : ");
 				String tel = bf.readLine();
 				
 				query = "SELECT MEM_ID FROM MEMBER WHERE MEM_NM = " + "'" + name + "' AND "
@@ -447,7 +447,44 @@ public class MemberDAO extends DBConnection{
 				
 			}else if(input.equalsIgnoreCase("pw")) {
 				// 비밀번호를 찾을때는 아이디, 이름, 전화번호 받기
-				
+				try {
+					System.out.print("┌─┟ 아이디 입력 : ");
+					String id = bf.readLine();
+					System.out.print("│─┠ 이름 입력 : ");
+					String name = bf.readLine();
+					System.out.print("└─┠ 전화번호 입력 : ");
+					String tel = bf.readLine();
+					
+					String qry = "SELECT MEM_PW FROM MEMBER WHERE MEM_ID = '" + id + "' AND " + 
+										"MEM_NM = '" + name + "' AND MEM_TEL = '" + tel + "'";
+					
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery(qry);
+					if(rs.next()) {
+						try {
+							System.out.print("└─ ∬ 새로운 비밀번호 입력 : ");
+							String pw = bf.readLine();
+							
+							qry = "UPDATE MEMBER SET MEM_PW = '" + pw + "' WHERE MEM_ID = '" + id + "'";
+							stmt.executeQuery(qry);
+							System.out.println("└─ UPDATE MESSAGE : 비밀번호가 정상적으로 변경되었습니다.");
+							
+							MenuBar.startView();
+							MenuBar.menuView();
+							
+						}catch(Exception e) {
+							System.out.println("UNKNOWN ERROR : " + e);
+						}
+					}else {
+						System.out.println("┌─ 등록된 회원이 아닙니다. ─┐");
+						Views.atLogin();
+						MenuBar.menuView();
+					}
+							
+					
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 				
 			}else {
 				System.out.println("WARNING : 입력이 옳바르지 않습니다.");

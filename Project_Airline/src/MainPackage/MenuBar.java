@@ -113,6 +113,7 @@ public class MenuBar {
 				}else {
 					MemberDAO.signIn();
 					Views.atLogin();
+					System.out.print(MemberDAO.user_name + " >> ");
 					menuView();
 				}
 				
@@ -153,25 +154,25 @@ public class MenuBar {
 					if(tmp.equalsIgnoreCase("YES")) {
 						System.out.println("┌──↓↓다음과 같은 문구를 작성해주세요 ↓↓──┐");
 						System.out.println("│→ '" + MemberDAO.user_id + " is free'");
-						System.out.print(MemberDAO.user_id + " >> ");
+						
+						System.out.print(MemberDAO.user_name + " >> ");
 						tmp = bf.readLine();
 						if(tmp.equals(MemberDAO.user_id + " is free")) {
 							MemberDAO.deleteAccount();
 							isLogined = false;
 							System.out.println("ㆁω ㆁ → 정상적으로 탈퇴 하셨습니다.. 다음에 또 오시길..");
-							startView();
-							System.out.print(MemberDAO.user_id + " >> ");
+							Views.atLogout();
 							menuView();
 							
 						}else if(tmp.equalsIgnoreCase("NO")) {
 							Views.atLogin();
-							System.out.print(MemberDAO.user_id + " >> ");
+							System.out.print(MemberDAO.user_name + " >> ");
 							menuView();
 						}
 						else {
 							System.out.println("WARNING : 잘못 입력하셨습니다.");
 							Views.atLogin();
-							System.out.print(MemberDAO.user_id + " >> ");
+							System.out.print(MemberDAO.user_name + " >> ");
 							menuView();
 						}
 						//System.out.println(user_id );
@@ -236,7 +237,11 @@ public class MenuBar {
 				MemberDAO.searchFlights();
 				
 				System.out.println("└────────────────────────────────────────────────────┘");
-				System.out.println("'add' 누른후 엔터 -> 바구니에 담을 항공편의 인덱스 입력");
+				System.out.println("바구니에 담는 방법");
+				System.out.println("1.'add' 입력 후 엔터");
+				System.out.println("2. 항공편 번호 입력 후 엔터");
+				System.out.println("3. 바구니에 담기를 마치고 싶으면 'done' 입력");
+				
 				System.out.print(MemberDAO.user_name + " >> ");
 				menuView();
 				
@@ -326,6 +331,16 @@ public class MenuBar {
 				menuView();		
 				
 			}
+
+			
+			
+			else if(input.equalsIgnoreCase("exit")) {
+				new MemberDAO().allClear();
+				System.out.println("프로그램이 정상적으로 종료되었습니다. 다음에 또 오세요.");
+			}
+			
+//-------------------------------------------------------------------------------				
+			
 			
 			else if(input.equals("1004")) {
 				new AdminView().menuView();
@@ -334,7 +349,7 @@ public class MenuBar {
 			
 			else {
 				System.out.println("올바른 명령어가 아닙니다. 다시 입력해주세요!");
-				startView();
+				System.out.print(MemberDAO.user_name + " >> ");
 				menuView();
 			}
 

@@ -16,6 +16,7 @@ public class AdminView extends DBConnection {
 	
 	public static void menuView() throws IOException, SQLException, ClassNotFoundException { // 관리자로 로그인 했을때 처음 보는 화면
 
+		moogonTV();
 		System.out.println("관리자모드");
 		System.out.println(" Command words");
 		System.out.println("1: 회원정보 관리(회원정보 수정, 회원 삭제기능도 함께(탈퇴)");
@@ -25,7 +26,7 @@ public class AdminView extends DBConnection {
 		System.out.println("4: 항공 생성 및 수정");
 		System.out.println("5: 티켓 생성 및 수정");
 		System.out.println();
-		System.out.print("관리자모드>> ");
+		System.out.print("ADMIN >> ");
 
 		String input = bf.readLine();
 
@@ -44,7 +45,7 @@ public class AdminView extends DBConnection {
 	}	
 	
 	
-	public static void MoogonTV() { // 관리자로 로그인 했을때 처음 보는 화면
+	public static void moogonTV() { // 관리자로 로그인 했을때 처음 보는 화면
 		
 		System.out.println();
 		System.out.println();
@@ -59,12 +60,14 @@ public class AdminView extends DBConnection {
 		System.out.println("");
 		
 		
-		System.out.println("┌────── Accessed to as Administrator ───────┐");
-		System.out.println("│	show me the money : 모든 회원에게 1,000,000원 지급");
-		System.out.println("│	");
-		System.out.println("│	");
-		System.out.println("│	");
-		System.out.println("└────── ─────────────── ───────┘");
+		System.out.println("┌────관리자 모드로 진입하였습니다. ────┐");
+		
+//		System.out.println("┌────── Accessed to as Administrator ───────┐");
+//		System.out.println("│	show me the money : 모든 회원에게 1,000,000원 지급");
+//		System.out.println("│	");
+//		System.out.println("│	");
+//		System.out.println("│	");
+//		System.out.println("└────── ─────────────── ───────┘");
 		
 		
 		
@@ -109,6 +112,7 @@ public class AdminView extends DBConnection {
 
 	public static void showAirline() throws IOException, ClassNotFoundException, SQLException {
 
+		
 		System.out.println("1.항공사 조회");
 		System.out.println("2.항공사 추가");
 		System.out.println("3.항공사 정보수정");
@@ -135,5 +139,72 @@ public class AdminView extends DBConnection {
 	}
 
 	// 여기부터
-
+	public static void welcomeView() {// 관리자로 로그인 했을때 처음 보는 화면
+	      
+	      System.out.println("┏━━━━━━━━━━━━━ ༻❁༺ ━━━━━━━━━━━━┓");
+	      System.out.println("┃ ✧･ﾟ ･ﾟ*✧･ﾟ: ･ﾟ:*Welcome Administrator*:･ﾟ:･ﾟ✧･ﾟ*:･ﾟ✧  ┃");
+	      System.out.println("┗━━━━━━━━━━━━━ ༻❁༺ ━━━━━━━━━━━━┛");
+	      AdminView.menuView();
+	      
+	   }
+	
+	public static void menuView() { 
+	      System.out.println("━━━━━━   Accessed to as Administrator    ━━━━━━");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･･: ･ﾟﾟ:*✧관리 대상을 입력하세요.✧･: ･ﾟ･･*･ﾟ: ﾟ:* ");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ: ･ﾟ ･ﾟ*･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･✧Member✧ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Flight✧*･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Ticket✧･ﾟ･ ﾟ*･ﾟ ･ﾟ*･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Airline✧･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Airport✧ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
+	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ: ･ﾟ ･ﾟ*･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
+	      System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+	      System.out.print("ADMIN >>");
+	      BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	      
+	      try {
+	         String input=bf.readLine();
+	         //회원 관리 기능
+	         if(input.equalsIgnoreCase("Member")) {   
+	            MemberDAO.adminMem();
+	         }else if(input.equalsIgnoreCase("Flight")) {
+	            
+	            //Flight 관리 기능
+	            
+	         }else if(input.equalsIgnoreCase("Ticket")) {
+	            
+	            //Ticket 관리 기능
+	            TicketDAO.adminTicket();
+	            
+	            
+	         }else if(input.equalsIgnoreCase("Airline")) {
+	            
+	            //Airline 관리 기능
+	            
+	            
+	         }else if(input.equalsIgnoreCase("Airport")) {
+	            //Airport 관리 기능
+	            AirportDAO.adminAP();
+	            
+	            
+	         }else {
+	         System.out.println("제시된 명령어로만 입력하세요.");
+	         System.out.println();
+	         AdminView.menuView();
+	      }
+	      
+	   } catch (Exception e) {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+	      System.out.println("에러 발생. 메인으로 이동합니다.");
+	      AdminView.menuView();
+	   }
+	   
+	}
+	
+	
+	
 }
+
+
+

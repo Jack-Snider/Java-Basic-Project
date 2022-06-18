@@ -354,9 +354,9 @@ public class MemberDAO extends DBConnection{
 				System.out.println("┌─────────────────┐");
 				System.out.println("│올바르지 않은 입력형식입니다. (- -)     │");
 				System.out.println("└─────────────────┘");
-				MenuBar.startView();
-				MenuBar.menuView();
+				
 				System.out.print(user_name + " >> ");
+				MenuBar.menuView();
 				
 				
 			}

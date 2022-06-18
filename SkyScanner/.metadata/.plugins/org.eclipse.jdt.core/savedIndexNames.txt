@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+C:\Java-Basic-Project\SkyScanner\.metadata\.plugins\org.eclipse.jdt.core
-1657330681.index
-3350316809.index
-1865797976.index

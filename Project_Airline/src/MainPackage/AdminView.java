@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +15,7 @@ public class AdminView extends DBConnection {
 	
 	public static void menuView() throws IOException, SQLException, ClassNotFoundException { // 관리자로 로그인 했을때 처음 보는 화면
 
-		moogonTV();
+		//moogonTV();
 		System.out.println("관리자모드");
 		System.out.println(" Command words");
 		System.out.println("1: 회원정보 관리(회원정보 수정, 회원 삭제기능도 함께(탈퇴)");
@@ -31,16 +30,16 @@ public class AdminView extends DBConnection {
 		String input = bf.readLine();
 
 		if (input.equalsIgnoreCase("1")) {// 회원정보관리
-
+			manageMember();
 		} else if (input.equalsIgnoreCase("2")) {// 항공사정보관리
 			showAirline();
 
 		} else if (input.equalsIgnoreCase("3")) {// 공항정보관리
-			
+			manageAirport();
 		} else if (input.equalsIgnoreCase("4")) {// 항공권관리
-
+			manageFlight();
 		} else if (input.equalsIgnoreCase("5")) {// 티켓관리
-
+			manageTicket();
 		}
 	}	
 	
@@ -110,6 +109,12 @@ public class AdminView extends DBConnection {
 
 	}
 
+//----------------------------------------------------------------------------------------
+	
+	
+	
+	
+//----------------------------------------------------------------------------------------	
 	public static void showAirline() throws IOException, ClassNotFoundException, SQLException {
 
 		
@@ -137,74 +142,116 @@ public class AdminView extends DBConnection {
 			showAirline();
 		}
 	}
+//----------------------------------------------------------------------------------------
 
-	// 여기부터
-	public static void welcomeView() {// 관리자로 로그인 했을때 처음 보는 화면
-	      
-	      System.out.println("┏━━━━━━━━━━━━━ ༻❁༺ ━━━━━━━━━━━━┓");
-	      System.out.println("┃ ✧･ﾟ ･ﾟ*✧･ﾟ: ･ﾟ:*Welcome Administrator*:･ﾟ:･ﾟ✧･ﾟ*:･ﾟ✧  ┃");
-	      System.out.println("┗━━━━━━━━━━━━━ ༻❁༺ ━━━━━━━━━━━━┛");
-	      AdminView.menuView();
-	      
-	   }
+	// 회원정보 관리
+	public static void manageMember() {
+		
+	}
 	
-	public static void menuView() { 
-	      System.out.println("━━━━━━   Accessed to as Administrator    ━━━━━━");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･･: ･ﾟﾟ:*✧관리 대상을 입력하세요.✧･: ･ﾟ･･*･ﾟ: ﾟ:* ");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ: ･ﾟ ･ﾟ*･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･✧Member✧ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Flight✧*･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Ticket✧･ﾟ･ ﾟ*･ﾟ ･ﾟ*･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Airline✧･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ✧Airport✧ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
-	      System.out.println("･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ: ･ﾟ ･ﾟ*･ﾟ･ﾟ*･ﾟ: ･ﾟ:*･ﾟ ･ﾟ*･ﾟ ･ﾟ:*");
-	      System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-	      System.out.print("ADMIN >>");
-	      BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-	      
-	      try {
-	         String input=bf.readLine();
-	         //회원 관리 기능
-	         if(input.equalsIgnoreCase("Member")) {   
-	            MemberDAO.adminMem();
-	         }else if(input.equalsIgnoreCase("Flight")) {
-	            
-	            //Flight 관리 기능
-	            
-	         }else if(input.equalsIgnoreCase("Ticket")) {
-	            
-	            //Ticket 관리 기능
-	            TicketDAO.adminTicket();
-	            
-	            
-	         }else if(input.equalsIgnoreCase("Airline")) {
-	            
-	            //Airline 관리 기능
-	            
-	            
-	         }else if(input.equalsIgnoreCase("Airport")) {
-	            //Airport 관리 기능
-	            AirportDAO.adminAP();
-	            
-	            
-	         }else {
-	         System.out.println("제시된 명령어로만 입력하세요.");
-	         System.out.println();
-	         AdminView.menuView();
-	      }
-	      
-	   } catch (Exception e) {
-	      // TODO Auto-generated catch block
-	      e.printStackTrace();
-	      System.out.println("에러 발생. 메인으로 이동합니다.");
-	      AdminView.menuView();
-	   }
-	   
+	// 공항정보 관리
+	public static void manageAirport() {
+		
+	}
+	
+	// 항공권 관리
+	public static void manageFlight() {
+		
+		/*
+		 * FLIGHT NO 생성, 
+		 * 
+		 * 
+		 */
+			
+		try {
+			
+			Connection conn = DBConnection.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs;
+			
+			
+			System.out.print("AIR_CODE(항공사 코드) : ");
+			String air_code = bf.readLine();
+			System.out.print("APT_AVL(도착지 코드) : ");
+			String apt_avl = bf.readLine();
+			System.out.print("FLIGHT_DEPA(출발시간) : ");
+			String flight_depa = bf.readLine();
+			System.out.print("FLIGHT_DEPT(도착시간) : ");
+			String flight_dept = bf.readLine();
+			
+			String idx = "";
+			while(true) {
+				System.out.print("IDX(인덱스) : ");
+				idx = bf.readLine();
+				String indexCheck = "SELECT * FROM FLIGHT WHERE IDX = " + idx + "";
+				rs = stmt.executeQuery(indexCheck);
+				if(rs.next()) {
+					System.out.println("해당 인덱스는 이미 존재합니다. 다시 입력해주세요.");
+					continue;
+				}else {
+					System.out.println("유효한 인덱스입니다.");
+					break;
+				}
+			}
+			
+			
+			String tmp_flight_depa = flight_depa;
+			String tmp = "";
+			for(int i = 0; i < tmp_flight_depa.length(); i++) {
+				if(tmp_flight_depa.charAt(i) == '-') {
+					tmp += "";
+				}else {
+					tmp += tmp_flight_depa.charAt(i);
+				}
+			}
+			tmp_flight_depa = tmp;
+			
+			
+			
+			String tmp_flight_dept = flight_dept;
+			tmp = "";
+			for(int i = 0; i < tmp_flight_dept.length(); i++) {
+				if(tmp_flight_dept.charAt(i) == ':') {
+					tmp += "";
+				}else {
+					tmp += tmp_flight_dept.charAt(i);
+				}
+			}
+			tmp_flight_dept = tmp;
+			
+			String flight_no = air_code + apt_avl + 
+					tmp_flight_depa + tmp_flight_dept;
+			
+			String insert = "INSERT INTO FLIGHT(FLIGHT_NO, "
+					+ "AIR_CODE, APT_AVL, FLIGHT_DEPA, FLIGHT_DEPT, "
+					+ "FLIGHT_DEP, IDX) VALUES('" + flight_no + "' , '" + air_code + "' , '" + apt_avl + "' , '"
+					+ flight_depa + "' , '" + flight_dept + "' , '" + "ICN' , " + idx + ")";
+			
+			
+			rs = stmt.executeQuery(insert);
+			if(rs.next()) {
+				System.out.println("정상적으로 등록 되었습니다.");
+			}else {
+				System.out.println("등록이 정상적으로 이루어지지 않았습니다.");
+			}
+			
+			
+			
+		}catch(Exception e) {
+			
+		}
+		
+		
+		
+		
+		
 	}
 	
 	
+	// 티켓관리
+	public static void manageTicket() {
+		
+	}
 	
 }
-
-
 

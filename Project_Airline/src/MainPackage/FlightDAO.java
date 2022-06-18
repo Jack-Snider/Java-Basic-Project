@@ -35,11 +35,14 @@ public class FlightDAO {
 	// 항공조회
 	public void showList() {
 
-		 String query = "SELECT RANK() OVER(ORDER BY FLIGHT_NO) \"NO.\" "
+		 String query = "SELECT RANK() OVER(ORDER BY IDX) \"NO.\" "
 		 		+ ", FLIGHT_NO, AIR_CODE,"
 		 		+ "APT_NM, FLIGHT_DEPA, FLIGHT_DEPT,"
 		 		+ "FLIGHT_DEP FROM AIRPORT A, FLIGHT F "
-		 		+ "WHERE A.APT_AVL = F.APT_AVL";
+		 		+ "WHERE A.APT_AVL = F.APT_AVL ";
+		 		
+	
+		 
 		
 		try {
 			

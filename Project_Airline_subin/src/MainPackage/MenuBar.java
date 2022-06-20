@@ -30,9 +30,9 @@ public class MenuBar {
 		System.out.println();
 		System.out.println(" Lobby Command words");
 		System.out.println("┌──────────────┐");
-		System.out.println("│login(로그인) \t\t\t      │");
-		System.out.println("│signin(회원가입)\t\t\t      │");
-		System.out.println("│find(아이디/비밀번호 찾기)      │");
+		System.out.println("│login(로그인) \t\t\t      ");
+		System.out.println("│signin(회원가입)\t\t\t      ");
+		System.out.println("│find(아이디/비밀번호 찾기)      ");
 		System.out.println("└──────────────┘");
 		System.out.println();
 		System.out.print(MemberDAO.user_name + " >> ");

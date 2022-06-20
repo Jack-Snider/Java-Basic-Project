@@ -161,6 +161,8 @@ public class AdminView extends DBConnection {
 		 * FLIGHT NO 생성, 
 		 * 
 		 * 
+		 * 항공편 수정인지 생성인지 선택
+		 * 
 		 */
 			
 		try {
@@ -249,9 +251,38 @@ public class AdminView extends DBConnection {
 	
 	
 	// 티켓관리
-	public static void manageTicket() {
-		
-	}
+	public static void manageTicket() throws IOException, ClassNotFoundException, SQLException {
+	      System.out.println("-----티켓관리 페이지-----");
+	      System.out.println("1. 티켓 조회");
+	      System.out.println("2. 티켓 생성");
+	      System.out.println("3. 티켓 수정 및 삭제");
+	      System.out.println("<. 뒤로가기");
+	      System.out.println("-----------------------------------");
+	      
+	      String input = bf.readLine();
+	      if(input.equalsIgnoreCase("1")) {
+	         TicketDAO.tableView();
+	         manageTicket();
+	      }else if(input.equalsIgnoreCase("2")) {
+	         TicketDAO.insert();
+	         manageTicket();
+	      }else if(input.equalsIgnoreCase("3")) {
+	         TicketDAO.update();
+	         manageTicket();
+	      }else if(input.equalsIgnoreCase("<")) {
+	         System.out.println("뒤로 돌아감.");
+	         System.out.println("--------------------------------");
+	         System.out.println();
+	         menuView();
+	         
+	      }else {
+	         System.out.println("잘못 입력하셨습니다. ");
+	         System.out.println("다시");
+	         System.out.println("---------------------------");
+	         manageTicket();
+	      }
+	      
+	   }
 	
 }
 

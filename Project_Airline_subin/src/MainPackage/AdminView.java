@@ -71,6 +71,7 @@ public class AdminView extends DBConnection {
 		
 	}
 	
+	
 	public static void showAllMember() { // 회원 전체보기
 		
 		String query = "SELECT * FROM MEMBER";

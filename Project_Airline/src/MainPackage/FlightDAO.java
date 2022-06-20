@@ -32,7 +32,7 @@ public class FlightDAO {
 	}
 	
 	
-	// 항공조회
+	// 항공조회 -> 사용자가 보는거
 	public void showList() {
 
 		 String query = "SELECT RANK() OVER(ORDER BY IDX) \"NO.\" "

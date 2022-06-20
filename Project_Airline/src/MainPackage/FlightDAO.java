@@ -41,8 +41,11 @@ public class FlightDAO {
 		 		+ "FLIGHT_DEP FROM AIRPORT A, FLIGHT F "
 		 		+ "WHERE A.APT_AVL = F.APT_AVL ";
 		 		
-	
+//		String query = "SELECT FLIGHT_NO, AIR_CODE, APT_NM, FLIGHT_DEPA, FLIGHT_DEPA, FLIGHT_DEP, IDX FROM FLIGHT "
+//				+ ", AIRPORT WHERE FLIGHT.APT_AVL = AIRPORT.APT_AVL";
 		 
+		
+		
 		
 		try {
 			
@@ -54,14 +57,15 @@ public class FlightDAO {
 			while(rs.next()) {
 				
 				int i = rs.getInt("NO.");
+				//int i = rs.getInt("IDX");
 				String flight_no = rs.getString("FLIGHT_NO");
 				String air_code = rs.getString("AIR_CODE");
 				String apt_nm = rs.getString("APT_NM");
 				String flight_depa = rs.getString("FLIGHT_DEPA");
 				String flight_dept = rs.getString("FLIGHT_DEPT");
-				String flight_dep = rs.getString("FLIGHT_DEP");
 				
-				System.out.printf("%2d \t %20s \t %8s \t %20s \t %20s \t %13s",i,flight_no,air_code,apt_nm, flight_depa + " " + flight_dept, "인천공항 \n");
+				
+				System.out.printf("%2d \t %20s \t %8s \t %20s \t %20s \t %13s", i , flight_no , air_code , apt_nm , (flight_depa + " " + flight_dept), "인천공항 \n");
 				//System.out.println(i + "    │" + flight_no + " \t \t " + air_code + " \t \t \t" + apt_nm + " \t \t " + flight_depa + " " + flight_dept + " \t \t " + "인천공항" );
 				
 			

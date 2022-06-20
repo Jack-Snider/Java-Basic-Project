@@ -92,7 +92,8 @@ public class MenuBar {
 					}
 				}else {
 					System.out.println("WARNING : 이미 로그인 되있습니다.");
-					startView();
+					Views.atLogin();
+					System.out.print(MemberDAO.user_name + " >> ");
 					menuView();
 				}
 				
@@ -218,6 +219,7 @@ public class MenuBar {
 					MemberDAO.accessDB();
 					MemberDAO.find();
 					startView();
+					
 					menuView();
 				}else {
 					System.out.println("현재 로그인 되있으십니다.");
@@ -342,7 +344,7 @@ public class MenuBar {
 //-------------------------------------------------------------------------------				
 			
 			
-			else if(input.equals("1004")) {
+			else if(input.equalsIgnoreCase("LEEM HERO")) {
 				new AdminView().menuView();
 			}
 			

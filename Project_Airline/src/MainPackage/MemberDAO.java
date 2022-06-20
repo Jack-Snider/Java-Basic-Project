@@ -35,7 +35,7 @@ public class MemberDAO extends DBConnection{
 	static ResultSet rs;
 	static boolean isLogined = false; // <- login status
 	static MemberDAO worker = new MemberDAO();
-	MemberDTO memDTO;
+	static MemberDTO memDTO = new MemberDTO();
 
 	
 	// 먼저 DB에 연동.
@@ -69,6 +69,10 @@ public class MemberDAO extends DBConnection{
 				user_name = rs.getString("MEM_NM");
 				user_id = rs.getString("MEM_ID");
 				isLogined = true;
+				
+				memDTO.setMem_id(user_id);
+				memDTO.setMem_nm(user_name);
+				
 				
 			}else {
 				System.out.println("아이디/비밀번호가 일치하지 않거나 가입된 회원이 아닙니다.");
@@ -440,7 +444,7 @@ public class MemberDAO extends DBConnection{
 				while(rs.next()) {
 					System.out.println(name + "의 아이디는 " + rs.getString("MEM_ID") + "입니다. ");
 				}
-				
+				System.out.print(MemberDAO.user_name + " >> ");
 				
 				while(rs.next()) {
 					System.out.println(rs.getString("MEM_ID"));
